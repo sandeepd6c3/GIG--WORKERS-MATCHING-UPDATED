@@ -1,654 +1,337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GigMatch – Find Trusted Local Workers Instantly</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GigMatch AI — Find Verified Skilled Workers Near You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ==================== NAVBAR ==================== -->
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#" class="logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text">Gig<span class="logo-accent">Match</span></span>
-      </a>
+<!-- ============================================================
+     NAVBAR (shared across all pages)
+============================================================ -->
+<nav class="navbar">
+  <div class="container">
+    <a href="#home" class="logo">GigMatch<span class="dot">AI</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-nav="home">Home</a></li>
+      <li><a href="#categories" data-nav="categories">Categories</a></li>
+      <li><a href="#workers" data-nav="workers">Find Workers</a></li>
+      <li><a href="#signup?role=worker" data-nav="signup">Work with us</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#login" class="btn btn-outline btn-sm">Log in</a>
+      <a href="#signup" class="btn btn-primary btn-sm">Sign up</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#hero" class="nav-link">Home</a>
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
-        <a href="#workers" class="nav-link">Workers</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
+<!-- ============================================================
+     PAGE: HOME
+============================================================ -->
+<section class="page" id="page-home">
+  <header class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">🤖 AI-matched · Verified professionals</span>
+      <h1>Skilled workers you can trust, matched to your job in minutes.</h1>
+      <p>Electricians, plumbers, cleaners, tutors and 20+ more categories — background-checked and rated by real customers.</p>
 
-      <div class="nav-cta">
-        <button class="btn-ghost" onclick="openModal('login')">Login</button>
-        <button class="btn-primary" onclick="openModal('signup')">Sign Up</button>
+      <form class="search-card" id="heroSearchForm">
+        <select id="heroCategory">
+          <option value="">All categories</option>
+        </select>
+        <input type="text" id="heroLocation" placeholder="Enter your area or city">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="hero-stats">
+        <div><div class="stat-num">26+</div><div class="stat-label">Service categories</div></div>
+        <div><div class="stat-num">12,000+</div><div class="stat-label">Verified workers</div></div>
+        <div><div class="stat-num">4.6★</div><div class="stat-label">Avg. customer rating</div></div>
+        <div><div class="stat-num">40+</div><div class="stat-label">Cities covered</div></div>
       </div>
-
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </header>
 
-  <!-- ==================== HERO ==================== -->
-  <section class="hero" id="hero">
-    <div class="hero-bg-grid"></div>
-    <div class="hero-blobs">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-    </div>
-
-    <div class="hero-container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          Trusted by 50,000+ customers
-        </div>
-        <h1 class="hero-title">
-          Find Trusted<br />
-          <span class="title-gradient">Local Workers</span><br />
-          Instantly
-        </h1>
-        <p class="hero-sub">
-          GigMatch connects you with verified, skilled professionals in your neighborhood — plumbers, electricians, painters, and more. Book in minutes, get the job done today.
-        </p>
-
-        <div class="search-bar" id="searchBar">
-          <div class="search-icon">🔍</div>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search for plumber, electrician, carpenter…"
-            autocomplete="off"
-          />
-          <button class="search-btn" onclick="performSearch()">Search</button>
-          <div class="search-suggestions" id="searchSuggestions"></div>
-        </div>
-
-        <div class="hero-btns">
-          <a href="#workers" class="btn-primary btn-lg">
-            <span>Find Workers</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="#" class="btn-outline btn-lg" onclick="openModal('worker')">
-            <span>Join as Worker</span>
-          </a>
-        </div>
-
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-num">12K+</span>
-            <span class="stat-label">Workers</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-num">50K+</span>
-            <span class="stat-label">Jobs Done</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat">
-            <span class="stat-num">4.9★</span>
-            <span class="stat-label">Avg Rating</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="hero-card-main">
-          <div class="hc-header">
-            <div class="hc-avatar">🔧</div>
-            <div>
-              <div class="hc-name">Rajesh Kumar</div>
-              <div class="hc-skill">Master Plumber</div>
-            </div>
-            <div class="hc-badge-avail">Available</div>
-          </div>
-          <div class="hc-rating">
-            <span class="stars">★★★★★</span>
-            <span class="rating-val">4.9</span>
-            <span class="rating-count">(248 reviews)</span>
-          </div>
-          <div class="hc-tags">
-            <span class="tag">Pipe Fitting</span>
-            <span class="tag">Leak Fix</span>
-            <span class="tag">Installation</span>
-          </div>
-          <button class="hc-hire-btn">Hire Now →</button>
-        </div>
-
-        <div class="hero-float-card fc-1">
-          <span class="fc-icon">⚡</span>
-          <div>
-            <div class="fc-title">Electrician nearby</div>
-            <div class="fc-sub">2.3 km away · ₹450/hr</div>
-          </div>
-        </div>
-
-        <div class="hero-float-card fc-2">
-          <span class="fc-icon">✅</span>
-          <div>
-            <div class="fc-title">Booking confirmed!</div>
-            <div class="fc-sub">Worker arrives in 30 min</div>
-          </div>
-        </div>
-
-        <div class="hero-float-card fc-3">
-          <span class="fc-icon">🏠</span>
-          <div>
-            <div class="fc-title">120+ Services</div>
-            <div class="fc-sub">Available in your area</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SERVICES ==================== -->
-  <section class="services" id="services">
+  <section class="section">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">What We Offer</div>
-        <h2 class="section-title">Popular <span class="title-gradient">Services</span></h2>
-        <p class="section-sub">From minor repairs to major installations — find the right professional for any home service need.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Browse services</span>
+          <h2>Popular categories</h2>
+          <p>20+ verified skill categories, from home repair to daily care</p>
+        </div>
+        <a href="#categories" class="btn btn-outline">View all categories</a>
       </div>
-
-      <div class="services-grid" id="servicesGrid">
-        <div class="service-card" data-service="plumbing" onclick="filterByService('plumber')">
-          <div class="sc-icon-wrap" style="--icon-color: #3B82F6;">
-            <span class="sc-icon">🔧</span>
-          </div>
-          <h3 class="sc-title">Plumbing</h3>
-          <p class="sc-desc">Pipe repairs, leak fixes, drain cleaning, fixture installations, and water heater services.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">48 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="service-card" data-service="electrical" onclick="filterByService('electrician')">
-          <div class="sc-icon-wrap" style="--icon-color: #F59E0B;">
-            <span class="sc-icon">⚡</span>
-          </div>
-          <h3 class="sc-title">Electrical</h3>
-          <p class="sc-desc">Wiring, panel upgrades, outlet installs, lighting setups, and safety inspections.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">62 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="service-card" data-service="carpentry" onclick="filterByService('carpenter')">
-          <div class="sc-icon-wrap" style="--icon-color: #8B5CF6;">
-            <span class="sc-icon">🪚</span>
-          </div>
-          <h3 class="sc-title">Carpentry</h3>
-          <p class="sc-desc">Custom furniture, cabinetry, door and window frames, flooring, and woodwork repairs.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">35 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="service-card" data-service="painting" onclick="filterByService('painter')">
-          <div class="sc-icon-wrap" style="--icon-color: #EF4444;">
-            <span class="sc-icon">🎨</span>
-          </div>
-          <h3 class="sc-title">Painting</h3>
-          <p class="sc-desc">Interior and exterior painting, wall priming, texture work, and waterproofing.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">41 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="service-card" data-service="cleaning" onclick="filterByService('cleaner')">
-          <div class="sc-icon-wrap" style="--icon-color: #10B981;">
-            <span class="sc-icon">🧹</span>
-          </div>
-          <h3 class="sc-title">Cleaning</h3>
-          <p class="sc-desc">Deep cleaning, sofa and carpet cleaning, kitchen degreasing, and post-renovation cleanup.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">57 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-
-        <div class="service-card" data-service="ac-repair" onclick="filterByService('ac repair')">
-          <div class="sc-icon-wrap" style="--icon-color: #06B6D4;">
-            <span class="sc-icon">❄️</span>
-          </div>
-          <h3 class="sc-title">AC Repair</h3>
-          <p class="sc-desc">AC installation, gas refilling, filter cleaning, compressor repair, and annual maintenance.</p>
-          <div class="sc-footer">
-            <span class="sc-workers">29 workers</span>
-            <span class="sc-arrow">→</span>
-          </div>
-        </div>
-      </div>
+      <div class="category-grid" id="homeCategoryGrid"></div>
     </div>
   </section>
 
-  <!-- ==================== HOW IT WORKS ==================== -->
-  <section class="how-it-works" id="how-it-works">
-    <div class="hiw-bg"></div>
+  <section class="section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Simple Process</div>
-        <h2 class="section-title">How <span class="title-gradient">It Works</span></h2>
-        <p class="section-sub">Book a skilled professional in under 2 minutes. Here's how easy it is.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Simple process</span>
+          <h2>How GigMatch AI works</h2>
+        </div>
       </div>
-
-      <div class="steps-track">
-        <div class="steps-line"></div>
-        <div class="steps-grid">
-
-          <div class="step-card">
-            <div class="step-num">01</div>
-            <div class="step-icon-wrap">
-              <span class="step-icon">🔍</span>
-            </div>
-            <h3 class="step-title">Search Service</h3>
-            <p class="step-desc">Type the service you need — plumbing, wiring, painting — and instantly see available professionals near you.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">02</div>
-            <div class="step-icon-wrap">
-              <span class="step-icon">👷</span>
-            </div>
-            <h3 class="step-title">Choose a Worker</h3>
-            <p class="step-desc">Browse profiles, check ratings and reviews, compare rates, and pick the best match for your job.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">03</div>
-            <div class="step-icon-wrap">
-              <span class="step-icon">📅</span>
-            </div>
-            <h3 class="step-title">Book Instantly</h3>
-            <p class="step-desc">Select your preferred time slot and confirm with one tap. Get an instant booking confirmation.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">04</div>
-            <div class="step-icon-wrap">
-              <span class="step-icon">🏆</span>
-            </div>
-            <h3 class="step-title">Job Done!</h3>
-            <p class="step-desc">Your worker arrives on time, completes the job, and you pay only when fully satisfied. Simple.</p>
-          </div>
-
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Tell us the job</h3>
+          <p>Pick a category, share your location and describe what you need done.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Get AI-matched workers</h3>
+          <p>Our matching engine ranks verified workers by skill, rating, distance and availability.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Book with confidence</h3>
+          <p>Compare trust badges and reviews, then book directly — no back-and-forth calls.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== WORKERS ==================== -->
-  <section class="workers" id="workers">
+  <section class="section">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Our Professionals</div>
-        <h2 class="section-title">Top <span class="title-gradient">Workers</span> Near You</h2>
-        <p class="section-sub">All workers are background-verified, skill-tested, and customer-rated.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Top rated</span>
+          <h2>Featured professionals</h2>
+          <p>Highly rated workers active on the platform this week</p>
+        </div>
+        <a href="#workers" class="btn btn-outline">Browse all workers</a>
       </div>
-
-      <div class="workers-filter">
-        <button class="filter-btn active" onclick="filterWorkers('all', this)">All</button>
-        <button class="filter-btn" onclick="filterWorkers('plumber', this)">Plumber</button>
-        <button class="filter-btn" onclick="filterWorkers('electrician', this)">Electrician</button>
-        <button class="filter-btn" onclick="filterWorkers('carpenter', this)">Carpenter</button>
-        <button class="filter-btn" onclick="filterWorkers('painter', this)">Painter</button>
-        <button class="filter-btn" onclick="filterWorkers('cleaner', this)">Cleaner</button>
-        <button class="filter-btn" onclick="filterWorkers('ac repair', this)">AC Repair</button>
-      </div>
-
-      <div class="workers-grid" id="workersGrid">
-        <!-- JS populated -->
-      </div>
+      <div class="results-grid" id="featuredWorkers"></div>
     </div>
   </section>
 
-  <!-- ==================== FEATURES ==================== -->
-  <section class="features" id="features">
+  <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Why GigMatch</div>
-        <h2 class="section-title">Built for <span class="title-gradient">Trust & Speed</span></h2>
-        <p class="section-sub">Every feature is designed to make finding help easier, faster, and safer.</p>
-      </div>
-
-      <div class="features-grid">
-        <div class="feature-card fc-big">
-          <div class="feat-icon-wrap">
-            <span class="feat-icon">📍</span>
-          </div>
-          <h3 class="feat-title">Real-Time Worker Tracking</h3>
-          <p class="feat-desc">Track your booked worker live on the map. Know exactly when they leave, their ETA, and get notified when they arrive at your doorstep.</p>
-          <div class="feat-visual">
-            <div class="map-mock">
-              <div class="map-pin pin-you">📍</div>
-              <div class="map-pin pin-worker">👷</div>
-              <div class="map-route"></div>
-              <div class="map-pulse"></div>
-            </div>
-          </div>
+      <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--navy-tint);border:none;">
+        <div>
+          <h3 style="margin-bottom:6px;">Every worker goes through our 3-step trust check</h3>
+          <p style="color:var(--text-secondary);font-size:14px;">Government ID verification, skill assessment and background screening — reflected in Gold, Silver and Bronze trust badges.</p>
         </div>
-
-        <div class="feature-card">
-          <div class="feat-icon-wrap">
-            <span class="feat-icon">🛡️</span>
-          </div>
-          <h3 class="feat-title">Verified Workers</h3>
-          <p class="feat-desc">Every professional undergoes ID verification, skill assessment, and background checks before joining the platform.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feat-icon-wrap">
-            <span class="feat-icon">💰</span>
-          </div>
-          <h3 class="feat-title">Affordable Pricing</h3>
-          <p class="feat-desc">Transparent, upfront pricing with no hidden charges. Compare rates and choose what fits your budget.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feat-icon-wrap">
-            <span class="feat-icon">⚡</span>
-          </div>
-          <h3 class="feat-title">Fast Booking</h3>
-          <p class="feat-desc">Book a worker in under 2 minutes. Same-day and emergency service slots available 24/7.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feat-icon-wrap">
-            <span class="feat-icon">⭐</span>
-          </div>
-          <h3 class="feat-title">Ratings & Reviews</h3>
-          <p class="feat-desc">Every completed job is reviewed by real customers. Make informed decisions with honest, verified feedback.</p>
+        <div style="display:flex;gap:10px;">
+          <span class="trust-badge gold">✓ Gold Verified</span>
+          <span class="trust-badge silver">✓ Silver Verified</span>
+          <span class="trust-badge bronze">✓ Bronze Verified</span>
         </div>
       </div>
     </div>
   </section>
+</section>
 
-  <!-- ==================== TESTIMONIALS ==================== -->
-  <section class="testimonials" id="testimonials">
+<!-- ============================================================
+     PAGE: CATEGORIES
+============================================================ -->
+<section class="page" id="page-categories">
+  <header class="page-header">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Customer Love</div>
-        <h2 class="section-title">What People <span class="title-gradient">Are Saying</span></h2>
-        <p class="section-sub">Real stories from homeowners who found their perfect match on GigMatch.</p>
-      </div>
-
-      <div class="slider-wrapper">
-        <div class="testimonials-slider" id="testimonialSlider">
-
-          <div class="testimonial-card">
-            <div class="testi-quote">"</div>
-            <p class="testi-text">Found a fantastic plumber within 10 minutes! He fixed our broken pipe and even cleaned up afterward. Absolutely professional. GigMatch is now my go-to for any home repair.</p>
-            <div class="testi-author">
-              <div class="author-avatar">👩</div>
-              <div>
-                <div class="author-name">Priya Sharma</div>
-                <div class="author-loc">📍 Jaipur, Rajasthan</div>
-              </div>
-              <div class="testi-stars">★★★★★</div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testi-quote">"</div>
-            <p class="testi-text">The electrician showed up on time, explained everything clearly, and charged exactly what was quoted. No surprises. I've already recommended GigMatch to all my friends and family.</p>
-            <div class="testi-author">
-              <div class="author-avatar">👨</div>
-              <div>
-                <div class="author-name">Arjun Mehta</div>
-                <div class="author-loc">📍 Mumbai, Maharashtra</div>
-              </div>
-              <div class="testi-stars">★★★★★</div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testi-quote">"</div>
-            <p class="testi-text">We needed urgent AC repair during summer. GigMatch had a technician at our home within 45 minutes! The service was incredible and the price was totally reasonable. Highly recommend!</p>
-            <div class="testi-author">
-              <div class="author-avatar">👩‍💼</div>
-              <div>
-                <div class="author-name">Kavya Nair</div>
-                <div class="author-loc">📍 Bangalore, Karnataka</div>
-              </div>
-              <div class="testi-stars">★★★★★</div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testi-quote">"</div>
-            <p class="testi-text">The carpenter I hired through GigMatch built custom shelves exactly as I imagined. Great craftsmanship, reasonable rates, and arrived on time. This platform is genuinely fantastic!</p>
-            <div class="testi-author">
-              <div class="author-avatar">🧑</div>
-              <div>
-                <div class="author-name">Rohan Verma</div>
-                <div class="author-loc">📍 Delhi, NCR</div>
-              </div>
-              <div class="testi-stars">★★★★☆</div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="testi-quote">"</div>
-            <p class="testi-text">Booked a deep cleaning service for my entire apartment. The team was thorough, polite, and used eco-friendly products. My home has never looked this clean. Worth every rupee!</p>
-            <div class="testi-author">
-              <div class="author-avatar">👩‍🦱</div>
-              <div>
-                <div class="author-name">Sneha Pillai</div>
-                <div class="author-loc">📍 Chennai, Tamil Nadu</div>
-              </div>
-              <div class="testi-stars">★★★★★</div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="slider-controls">
-          <button class="slider-btn prev-btn" id="prevBtn" aria-label="Previous">←</button>
-          <div class="slider-dots" id="sliderDots"></div>
-          <button class="slider-btn next-btn" id="nextBtn" aria-label="Next">→</button>
-        </div>
-      </div>
+      <div class="breadcrumb"><a href="#home">Home</a> / Categories</div>
+      <h1>All service categories</h1>
+      <p>26 verified skill categories. Pick one to see available workers near you.</p>
     </div>
-  </section>
-
-  <!-- ==================== CTA ==================== -->
-  <section class="cta-section" id="cta">
-    <div class="cta-bg"></div>
+  </header>
+  <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="cta-content">
-        <div class="cta-badge">🚀 Available 24/7</div>
-        <h2 class="cta-title">Need a Worker<br /><span>Right Now?</span></h2>
-        <p class="cta-sub">Stop waiting. Hundreds of verified workers are online right now and ready for your job.</p>
-        <div class="cta-btns">
-          <a href="#workers" class="btn-primary btn-lg btn-white">
-            <span>Book Service</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-          <a href="tel:+911800123456" class="btn-ghost-white btn-lg">
-            <span>📞 Call Now</span>
-          </a>
-        </div>
-        <div class="cta-trust">
-          <span>✅ No booking fees</span>
-          <span>✅ Cancel anytime</span>
-          <span>✅ Satisfaction guaranteed</span>
-        </div>
+      <div class="search-card" style="max-width:420px;margin-bottom:28px;box-shadow:var(--shadow-sm);border:1px solid var(--border);">
+        <input type="text" id="catSearch" placeholder="Search categories (e.g. plumber)">
       </div>
+      <div class="category-grid" id="allCategoryGrid"></div>
     </div>
   </section>
+</section>
 
-  <!-- ==================== CONTACT ==================== -->
-  <section class="contact-section" id="contact">
+<!-- ============================================================
+     PAGE: WORKERS (listing + filters)
+============================================================ -->
+<section class="page" id="page-workers">
+  <header class="page-header">
     <div class="container">
-      <div class="section-header">
-        <div class="section-tag">Get in Touch</div>
-        <h2 class="section-title">Contact <span class="title-gradient">Us</span></h2>
-        <p class="section-sub">Have questions? We're here to help, 24/7.</p>
-      </div>
+      <div class="breadcrumb"><a href="#home">Home</a> / Find Workers</div>
+      <h1>Find verified workers</h1>
+      <p id="resultSummary">Showing all workers</p>
+    </div>
+  </header>
 
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="ci-item">
-            <div class="ci-icon">📍</div>
-            <div>
-              <div class="ci-label">Our Office</div>
-              <div class="ci-val">42 Tech Park, Sector 8, Jaipur, Rajasthan 302020</div>
-            </div>
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="listing-layout">
+
+        <aside class="filters-panel">
+          <h3>Filters</h3>
+
+          <div class="filter-group">
+            <label for="fCategory">Category</label>
+            <select id="fCategory"><option value="">All categories</option></select>
           </div>
-          <div class="ci-item">
-            <div class="ci-icon">📞</div>
-            <div>
-              <div class="ci-label">Phone</div>
-              <div class="ci-val">+91 1800-123-4567 (Toll Free)</div>
-            </div>
+
+          <div class="filter-group">
+            <label for="fCity">City</label>
+            <select id="fCity"><option value="">All cities</option></select>
           </div>
-          <div class="ci-item">
-            <div class="ci-icon">✉️</div>
-            <div>
-              <div class="ci-label">Email</div>
-              <div class="ci-val">support@gigmatch.in</div>
-            </div>
+
+          <div class="filter-group">
+            <label for="fRating">Minimum rating</label>
+            <select id="fRating">
+              <option value="0">Any rating</option>
+              <option value="4.5">4.5 &amp; up</option>
+              <option value="4">4.0 &amp; up</option>
+              <option value="3.5">3.5 &amp; up</option>
+            </select>
           </div>
-          <div class="ci-item">
-            <div class="ci-icon">🕐</div>
-            <div>
-              <div class="ci-label">Working Hours</div>
-              <div class="ci-val">24/7, 365 days a year</div>
-            </div>
+
+          <div class="filter-group">
+            <label for="fSort">Sort by</label>
+            <select id="fSort">
+              <option value="rating">Highest rated</option>
+              <option value="jobs">Most jobs done</option>
+              <option value="rate-low">Price: low to high</option>
+              <option value="rate-high">Price: high to low</option>
+            </select>
           </div>
+
+          <div class="filter-group">
+            <label class="checkbox-row"><input type="checkbox" id="fAvailable"> Available today only</label>
+          </div>
+
+          <button class="btn btn-outline btn-block btn-sm" id="clearFilters">Clear all filters</button>
+        </aside>
+
+        <div>
+          <div class="results-head"><p id="countText">Loading workers…</p></div>
+          <div class="results-grid" id="resultsGrid"></div>
         </div>
 
-        <form class="contact-form" id="contactForm" onsubmit="handleContactSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="cName">Full Name</label>
-              <input type="text" id="cName" placeholder="Rahul Gupta" required />
-            </div>
-            <div class="form-group">
-              <label for="cEmail">Email Address</label>
-              <input type="email" id="cEmail" placeholder="rahul@example.com" required />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="cSubject">Subject</label>
-            <input type="text" id="cSubject" placeholder="How can we help?" required />
-          </div>
-          <div class="form-group">
-            <label for="cMessage">Message</label>
-            <textarea id="cMessage" rows="5" placeholder="Tell us more…" required></textarea>
-          </div>
-          <button type="submit" class="btn-primary btn-full">Send Message →</button>
-        </form>
       </div>
     </div>
   </section>
+</section>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="footer" id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="footer-grid">
+<!-- ============================================================
+     PAGE: WORKER PROFILE (dynamic via #profile?id=X)
+============================================================ -->
+<section class="page" id="page-profile">
+  <div class="container" style="padding-top:28px;">
+    <div class="breadcrumb"><a href="#home">Home</a> / <a href="#workers">Find Workers</a> / <span id="crumbName">Profile</span></div>
+  </div>
+  <main class="container" style="padding-bottom:64px;" id="profileRoot"></main>
+</section>
 
-          <div class="footer-brand">
-            <a href="#" class="logo">
-              <span class="logo-icon">⚡</span>
-              <span class="logo-text">Gig<span class="logo-accent">Match</span></span>
-            </a>
-            <p class="footer-about">GigMatch connects homeowners with skilled, verified local professionals for all home service needs. Fast, affordable, and reliable — every time.</p>
-            <div class="social-links">
-              <a href="#" class="social-btn" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-              </a>
-              <a href="#" class="social-btn" aria-label="Twitter">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-              </a>
-              <a href="#" class="social-btn" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-              </a>
-              <a href="#" class="social-btn" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <div class="footer-col">
-            <h4 class="footer-heading">Quick Links</h4>
-            <ul class="footer-links">
-              <li><a href="#hero">Home</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <li><a href="#workers">Find Workers</a></li>
-              <li><a href="#testimonials">Reviews</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h4 class="footer-heading">Services</h4>
-            <ul class="footer-links">
-              <li><a href="#services">Plumbing</a></li>
-              <li><a href="#services">Electrical</a></li>
-              <li><a href="#services">Carpentry</a></li>
-              <li><a href="#services">Painting</a></li>
-              <li><a href="#services">Cleaning</a></li>
-              <li><a href="#services">AC Repair</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-col">
-            <h4 class="footer-heading">Contact</h4>
-            <ul class="footer-links contact-list">
-              <li>📍 42 Tech Park, Jaipur, Rajasthan</li>
-              <li>📞 +91 1800-123-4567</li>
-              <li>✉️ support@gigmatch.in</li>
-              <li>🕐 24/7 Available</li>
-            </ul>
-          </div>
-
+<!-- ============================================================
+     PAGE: LOGIN
+============================================================ -->
+<section class="page" id="page-login">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Welcome back</h1>
+      <p>Log in to manage your bookings or worker profile.</p>
+      <div class="auth-success" id="loginSuccessMsg">✓ Logged in successfully. Redirecting…</div>
+      <form id="loginForm" novalidate>
+        <div class="form-group" id="loginEmailGroup">
+          <label for="loginEmail">Email address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com">
+          <div class="form-error">Enter a valid email address.</div>
         </div>
+        <div class="form-group" id="loginPassGroup">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password">
+          <div class="form-error">Password must be at least 6 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      </form>
+      <p class="auth-alt">Don't have an account? <a href="#signup">Sign up</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAGE: SIGNUP
+============================================================ -->
+<section class="page" id="page-signup">
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Create your account</h1>
+      <p>Join GigMatch AI as a customer or as a verified worker.</p>
+      <div class="auth-success" id="signupSuccessMsg">✓ Account created. Redirecting…</div>
+
+      <div class="role-toggle">
+        <button type="button" id="roleCustomer" class="active">I need a service</button>
+        <button type="button" id="roleWorker">I offer a service</button>
+      </div>
+
+      <form id="signupForm" novalidate>
+        <div class="form-group" id="nameGroup">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Your full name">
+          <div class="form-error">Please enter your name.</div>
+        </div>
+        <div class="form-group" id="signupEmailGroup">
+          <label for="signupEmail">Email address</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com">
+          <div class="form-error">Enter a valid email address.</div>
+        </div>
+        <div class="form-group" id="phoneGroup">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" placeholder="10-digit mobile number">
+          <div class="form-error">Enter a valid 10-digit phone number.</div>
+        </div>
+        <div class="form-group" id="categoryGroup" style="display:none;">
+          <label for="category">Your service category</label>
+          <select id="category"><option value="">Select category</option></select>
+          <div class="form-error">Please select your service category.</div>
+        </div>
+        <div class="form-group" id="signupPassGroup">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="At least 6 characters">
+          <div class="form-error">Password must be at least 6 characters.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create account</button>
+      </form>
+      <p class="auth-alt">Already have an account? <a href="#login">Log in</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER (shared)
+============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid" id="footerGrid">
+      <div>
+        <div class="logo" style="color:#fff;margin-bottom:12px;">GigMatch<span class="dot">AI</span></div>
+        <p>AI-powered platform connecting verified skilled workers across 20+ categories with customers who need reliable, on-time service.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="#home">About us</a></li><li><a href="#home">How it works</a></li><li><a href="#home">Careers</a></li></ul>
+      </div>
+      <div>
+        <h4>For workers</h4>
+        <ul><li><a href="#signup?role=worker">Join as a worker</a></li><li><a href="#home">Trust badges</a></li><li><a href="#home">Payouts</a></li></ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul><li><a href="#home">Help center</a></li><li><a href="#home">Safety</a></li><li><a href="#home">Contact us</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="container">
-        <p>© 2025 GigMatch. All rights reserved. Made with ❤️ for Indian homeowners.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Cookie Policy</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ==================== MODAL ==================== -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-    <div class="modal" id="modal" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeModal()">×</button>
-      <div id="modalContent"></div>
+      <span>© 2026 GigMatch AI. Built as a 45-day industrial training project.</span>
+      <span>Made with HTML, CSS &amp; JavaScript</span>
     </div>
   </div>
+</footer>
 
-  <!-- ==================== TOAST ==================== -->
-  <div class="toast" id="toast"></div>
-
-  <!-- ==================== SCROLL TO TOP ==================== -->
-  <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Scroll to top">↑</button>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
