@@ -7,19 +7,19 @@ const bookingSchema = new mongoose.Schema(
       unique: true,
     },
     customerId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: [true, 'Booking must belong to a customer'],
     },
     workerId: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Worker',
+      required: [true, 'Booking must be assigned to a worker'],
     },
     categoryId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
-      required: true,
+      required: [true, 'Booking must be associated with a category'],
     },
     jobDescription: {
       type: String,

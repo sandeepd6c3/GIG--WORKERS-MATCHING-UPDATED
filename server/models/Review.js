@@ -3,38 +3,42 @@ import mongoose from 'mongoose';
 const reviewSchema = new mongoose.Schema(
   {
     bookingId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Booking',
-      required: true,
+      required: [true, 'Review must be associated with a valid Booking ID'],
       unique: true,
     },
     customerId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
+      required: [true, 'Review must belong to a Customer'],
     },
     workerId: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Worker',
+      required: [true, 'Review must belong to a Worker'],
     },
     categoryId: {
-      type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Category',
     },
     rating: {
       type: Number,
-      required: true,
-      min: 1,
-      max: 5,
+      required: [true, 'Please provide a rating between 1 and 5'],
+      min: [1, 'Rating must be at least 1'],
+      max: [5, 'Rating cannot exceed 5'],
     },
     title: {
       type: String,
-      maxlength: 100,
+      trim: true,
+      maxlength: [100, 'Review title cannot exceed 100 characters'],
+      default: '',
     },
     comment: {
       type: String,
-      maxlength: 1000,
+      trim: true,
+      maxlength: [1000, 'Review comment cannot exceed 1000 characters'],
+      default: '',
     },
     isVerified: {
       type: Boolean,
@@ -52,9 +56,10 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Post-save middleware hook: Re-calculates and updates averageRating & totalReviews on Worker model
 reviewSchema.post('save', async function () {
-  const Worker = mongoose.model('User');
-  
+  const Worker = mongoose.model('Worker');
+
   const stats = await this.constructor.aggregate([
     {
       $match: { workerId: this.workerId, isVisible: true }
@@ -70,13 +75,13 @@ reviewSchema.post('save', async function () {
 
   if (stats.length > 0) {
     await Worker.findByIdAndUpdate(this.workerId, {
-      'workerProfile.averageRating': Math.round(stats[0].averageRating * 10) / 10,
-      'workerProfile.totalReviews': stats[0].totalReviews
+      averageRating: Math.round(stats[0].averageRating * 10) / 10,
+      totalReviews: stats[0].totalReviews
     });
   } else {
     await Worker.findByIdAndUpdate(this.workerId, {
-      'workerProfile.averageRating': 0,
-      'workerProfile.totalReviews': 0
+      averageRating: 0,
+      totalReviews: 0
     });
   }
 });
@@ -87,3 +92,4 @@ reviewSchema.index({ customerId: 1 });
 
 const Review = mongoose.model('Review', reviewSchema);
 export default Review;
+
