@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import connectDB from './config/db.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
 import 'colors';
@@ -51,6 +52,10 @@ app.use('/api', apiLimiter);
 app.get('/api/v1/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'API server is healthy and running' });
 });
+
+// API Routes
+app.use('/api/v1/categories', categoryRoutes);
+
 
 // Global Error Handler Middleware
 app.use(errorHandler);
