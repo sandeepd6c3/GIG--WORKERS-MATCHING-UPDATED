@@ -1,12 +1,13 @@
 {
-  "name": "ai-gigmatch",
+  "name": "gig-workers-matching-platform",
   "version": "1.0.0",
-  "description": "AI GigMatch - MERN Full Stack Gig Workers Platform",
+  "description": "GIG Workers Matching Platform - Full Stack MERN",
   "scripts": {
-    "server": "cd server && npm run dev",
-    "client": "echo 'Client is a static HTML/CSS/JS app - open GIG-Workers-Matching-main/index.html in browser'",
-    "dev": "npm run server",
-    "install-all": "cd server && npm install"
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "install-all": "cd frontend && npm install && cd ../backend && npm install",
+    "build:frontend": "cd frontend && npm run build"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"
