@@ -1,14 +1,11 @@
-import { Router } from 'express';
-import { createBooking, getMyBookings, getBookingById, updateBookingStatus, cancelBooking } from '../controllers/bookingController.js';
-import { protect, authorize } from '../middlewares/authMiddleware.js';
+import express from 'express';
+import { createBooking, getMyBookings, updateBookingStatus } from '../controllers/bookingController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
-const router = Router();
+const router = express.Router();
 
-router.use(protect);
-router.post('/', authorize('customer'), createBooking);
-router.get('/my', getMyBookings);
-router.get('/:id', getBookingById);
-router.patch('/:id/status', authorize('worker', 'admin'), updateBookingStatus);
-router.patch('/:id/cancel', cancelBooking);
+router.post('/', protect, createBooking);
+router.get('/my-bookings', protect, getMyBookings);
+router.patch('/:id/status', protect, updateBookingStatus);
 
 export default router;

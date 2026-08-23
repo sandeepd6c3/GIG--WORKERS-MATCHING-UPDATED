@@ -1,13 +1,13 @@
 {
-  "name": "ai-gigmatch-server",
+  "name": "gig-workers-matching-backend",
   "version": "1.0.0",
-  "description": "Server for AI GigMatch",
+  "description": "Backend API Server for Gig Workers Matching Platform",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "seed": "node utils/seedData.js"
+    "seed": "node seed/workerSeed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

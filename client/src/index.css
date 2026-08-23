@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap');
 
 :root {
-  /* Color Palette matching template screenshots */
+  /* Color Palette matching design tokens */
   --navy-dark: #0f2137;
   --navy-hero: #112239;
   --navy-tint: rgba(15, 33, 55, 0.04);
@@ -135,7 +135,7 @@ a {
   transform: translateY(-2px);
 }
 
-/* Button System matching screenshots */
+/* Button System */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -254,108 +254,27 @@ a {
   display: none;
 }
 
-/* ============================================================
-   RESPONSIVE MEDIA QUERIES
-   ============================================================ */
-
-/* Tablet & Mobile Layouts (max-width: 992px) */
+/* Responsive Styles */
 @media (max-width: 992px) {
   .section {
     padding: 2.5rem 0;
   }
-
-  /* Two column listing layouts stack vertically on tablets */
-  .listing-layout,
-  .profile-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .desktop-links {
-    gap: 1.25rem !important;
-  }
 }
 
-/* Mobile Screens (max-width: 768px) */
 @media (max-width: 768px) {
   .container {
     padding: 0 1rem;
   }
 
-  h1 {
-    font-size: 2.1rem !important;
-  }
-
-  h2 {
-    font-size: 1.5rem !important;
-  }
-
-  /* Hide Desktop Nav and show Hamburger button */
-  .desktop-links,
-  .desktop-actions {
-    display: none !important;
-  }
-
   .mobile-toggle-btn {
     display: flex !important;
-    align-items: center;
-    justify-content: center;
   }
 
-  .section-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  /* Search bar turns into vertical stack on mobile */
-  form[style*="flex-wrap"],
-  .search-divider {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-
-  .search-divider {
-    display: none !important;
-  }
-
-  form .form-control {
-    width: 100% !important;
-  }
-
-  /* Grids collapse to single or double columns */
   .category-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 0.85rem;
   }
 
-  .results-grid,
-  .grid-3,
-  .grid-4 {
+  .results-grid, .grid-3, .grid-4 {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .card-white {
-    padding: 1.25rem;
-  }
-}
-
-/* Extra Small Phones (max-width: 480px) */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.75rem !important;
-  }
-
-  .category-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .trust-badge {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.5rem;
   }
 }

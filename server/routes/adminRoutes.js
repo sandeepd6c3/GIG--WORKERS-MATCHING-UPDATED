@@ -1,16 +1,11 @@
-import { Router } from 'express';
-import { getDashboardStats, getAllUsers, updateUserStatus, getVerificationQueue, processVerification, getAllBookings } from '../controllers/adminController.js';
-import { protect, authorize } from '../middlewares/authMiddleware.js';
+import express from 'express';
+import { getDashboardStats, getAllUsers } from '../controllers/adminController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import { adminOnly } from '../middleware/adminMiddleware.js';
 
-const router = Router();
+const router = express.Router();
 
-router.use(protect, authorize('admin'));
-
-router.get('/dashboard', getDashboardStats);
-router.get('/users', getAllUsers);
-router.patch('/users/:id/status', updateUserStatus);
-router.get('/verifications', getVerificationQueue);
-router.patch('/verifications/:id', processVerification);
-router.get('/bookings', getAllBookings);
+router.get('/stats', protect, adminOnly, getDashboardStats);
+router.get('/users', protect, adminOnly, getAllUsers);
 
 export default router;
