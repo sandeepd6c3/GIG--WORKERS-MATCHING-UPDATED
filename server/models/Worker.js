@@ -51,6 +51,14 @@ const workerSchema = new mongoose.Schema(
     completedJobs: {
       type: Number,
       default: 0
+    },
+    experienceYears: {
+      type: Number,
+      default: 5
+    },
+    isVerified: {
+      type: Boolean,
+      default: true
     }
   },
   { timestamps: true }

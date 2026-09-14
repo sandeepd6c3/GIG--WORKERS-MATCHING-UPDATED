@@ -28,50 +28,68 @@ const Home = () => {
     <div>
       {/* Hero Section */}
       <section style={{
-        background: 'linear-gradient(180deg, var(--navy-hero) 0%, var(--navy-dark) 100%)',
+        background: 'linear-gradient(180deg, #070a12 0%, #0c1424 50%, var(--bg-page) 100%)',
         color: '#ffffff',
-        padding: '5rem 0 6rem 0',
+        padding: '6rem 0 6.5rem 0',
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        borderBottom: '1px solid var(--border-color)'
       }}>
         <div className="container">
           <span style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '0.4rem',
-            background: 'rgba(32, 180, 134, 0.15)',
-            border: '1px solid rgba(32, 180, 134, 0.3)',
+            gap: '0.5rem',
+            background: 'var(--accent-green-soft)',
+            border: '1px solid var(--accent-green-border)',
             color: 'var(--accent-green)',
             fontSize: '0.825rem',
             fontWeight: 700,
-            padding: '0.35rem 0.85rem',
-            borderRadius: '20px',
+            padding: '0.4rem 1rem',
+            borderRadius: 'var(--radius-full)',
             marginBottom: '1.5rem',
-            textTransform: 'uppercase'
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            boxShadow: 'var(--accent-green-glow)'
           }}>
-            <Sparkles size={14} /> AI-Powered Gig Worker Matching
+            <Sparkles size={15} /> AI-Powered Gig Worker Matching
           </span>
 
-          <h1 style={{ fontSize: '3.2rem', color: '#ffffff', maxWidth: '850px', margin: '0 auto 1.25rem auto', lineHeight: 1.15 }}>
+          <h1 style={{
+            fontSize: '3.4rem',
+            color: 'var(--text-white)',
+            maxWidth: '880px',
+            margin: '0 auto 1.35rem auto',
+            lineHeight: 1.15,
+            fontFamily: 'Sora, Outfit, sans-serif',
+            letterSpacing: '-0.03em'
+          }}>
             Book Top-Rated Local Experts <br />
-            <span style={{ color: 'var(--accent-green)' }}>In Under 60 Seconds</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block'
+            }}>
+              In Under 60 Seconds
+            </span>
           </h1>
 
-          <p style={{ fontSize: '1.15rem', color: '#cbd5e1', maxWidth: '640px', margin: '0 auto 2.5rem auto', lineHeight: 1.6 }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', maxWidth: '650px', margin: '0 auto 2.75rem auto', lineHeight: 1.6 }}>
             Verified background checks, instant scheduling, transparent hourly rates, and gold-tier service guarantees.
           </p>
 
           <SearchBar onSearch={handleSearch} />
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '3rem', flexWrap: 'wrap', fontSize: '0.9rem', color: '#94a3b8' }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <CheckCircle2 size={16} color="var(--accent-green)" /> 100% Background Verified
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '2.25rem', marginTop: '3.25rem', flexWrap: 'wrap', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-secondary)' }}>
+              <CheckCircle2 size={17} color="var(--accent-green)" /> 100% Background Verified
             </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <CheckCircle2 size={16} color="var(--accent-green)" /> Instant Upfront Pricing
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-secondary)' }}>
+              <CheckCircle2 size={17} color="var(--accent-green)" /> Instant Upfront Pricing
             </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <CheckCircle2 size={16} color="var(--accent-green)" /> Satisfaction Guaranteed
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: 'var(--text-secondary)' }}>
+              <CheckCircle2 size={17} color="var(--accent-green)" /> Satisfaction Guaranteed
             </span>
           </div>
         </div>
@@ -82,10 +100,10 @@ const Home = () => {
         <div className="container">
           <div className="section-head">
             <div>
-              <span className="eyebrow">Services Available</span>
-              <h2>Popular Gig Categories</h2>
+              <span className="eyebrow"><Sparkles size={13} /> Services Available</span>
+              <h2 style={{ fontSize: '1.9rem' }}>Popular Gig Categories</h2>
             </div>
-            <Link to="/categories" style={{ color: 'var(--accent-green)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <Link to="/categories" style={{ color: 'var(--accent-green)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.95rem' }}>
               View All Categories <ArrowRight size={16} />
             </Link>
           </div>
@@ -99,14 +117,14 @@ const Home = () => {
       </section>
 
       {/* Featured Workers */}
-      <section className="section" style={{ background: '#f1f5f9' }}>
+      <section className="section" style={{ background: 'var(--bg-surface-subtle)', borderTop: '1px solid var(--border-color)', borderBottom: '1px solid var(--border-color)' }}>
         <div className="container">
           <div className="section-head">
             <div>
-              <span className="eyebrow">Top Rated Talent</span>
-              <h2>Featured Gig Workers Nearby</h2>
+              <span className="eyebrow"><Award size={13} /> Top Rated Talent</span>
+              <h2 style={{ fontSize: '1.9rem' }}>Featured Gig Workers Nearby</h2>
             </div>
-            <Link to="/workers" style={{ color: 'var(--accent-green)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <Link to="/workers" style={{ color: 'var(--accent-green)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.95rem' }}>
               Explore All Workers <ArrowRight size={16} />
             </Link>
           </div>
@@ -123,3 +141,4 @@ const Home = () => {
 };
 
 export default Home;
+

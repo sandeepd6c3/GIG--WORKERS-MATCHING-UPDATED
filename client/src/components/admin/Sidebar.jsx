@@ -22,12 +22,21 @@ const Sidebar = () => {
     <aside style={{
       width: '240px',
       background: 'var(--navy-dark)',
-      color: '#cbd5e1',
+      color: 'var(--text-secondary)',
       minHeight: 'calc(100vh - 70px)',
-      padding: '1.5rem 1rem',
-      borderRight: '1px solid rgba(255, 255, 255, 0.08)'
+      padding: '1.5rem 0.85rem',
+      borderRight: '1px solid var(--border-color)',
+      flexShrink: 0
     }}>
-      <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-green)', textTransform: 'uppercase', marginBottom: '1rem', paddingLeft: '0.75rem' }}>
+      <div style={{
+        fontSize: '0.75rem',
+        fontWeight: 700,
+        color: 'var(--accent-green)',
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        marginBottom: '1rem',
+        paddingLeft: '0.75rem'
+      }}>
         Admin Operations
       </div>
 
@@ -45,11 +54,12 @@ const Sidebar = () => {
                 gap: '0.75rem',
                 padding: '0.65rem 0.85rem',
                 borderRadius: 'var(--radius)',
-                color: active ? '#ffffff' : '#cbd5e1',
-                background: active ? 'var(--accent-green)' : 'transparent',
+                color: active ? '#ffffff' : 'var(--text-secondary)',
+                background: active ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'transparent',
                 fontWeight: active ? 600 : 400,
                 textDecoration: 'none',
-                transition: 'var(--transition)'
+                transition: 'var(--transition)',
+                boxShadow: active ? '0 4px 14px rgba(16, 185, 129, 0.3)' : 'none'
               }}
             >
               <Icon size={18} />
@@ -63,3 +73,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

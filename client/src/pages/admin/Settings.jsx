@@ -8,7 +8,7 @@ const AdminSettings = () => {
   const [saved, setSaved] = useState(false);
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />
@@ -16,7 +16,7 @@ const AdminSettings = () => {
           <h1 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Global Platform Settings</h1>
 
           {saved && (
-            <div style={{ background: '#dcfce7', color: '#15803d', padding: '0.75rem 1rem', borderRadius: 'var(--radius)', marginBottom: '1.25rem', maxWidth: '500px' }}>
+            <div style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)', padding: '0.75rem 1rem', borderRadius: 'var(--radius)', marginBottom: '1.25rem', maxWidth: '500px' }}>
               ✓ Settings updated!
             </div>
           )}

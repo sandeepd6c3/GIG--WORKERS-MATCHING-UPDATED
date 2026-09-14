@@ -19,7 +19,9 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import bookingRoutes from './routes/bookingRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import matchingRoutes from './routes/matchingRoutes.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 
 // Connect Database
@@ -62,7 +64,9 @@ app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/bookings', bookingRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/payments', paymentRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/matching', matchingRoutes);
 
 // Error Middleware
 app.use(errorMiddleware);

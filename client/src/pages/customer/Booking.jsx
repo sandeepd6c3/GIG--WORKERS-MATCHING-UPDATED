@@ -50,12 +50,26 @@ const Booking = () => {
 
   if (submitted) {
     return (
-      <div className="section container" style={{ textAlign: 'center', maxWidth: '500px' }}>
-        <div className="card-white" style={{ padding: '3rem 2rem' }}>
-          <CheckCircle size={60} color="var(--accent-green)" style={{ marginBottom: '1rem' }} />
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>Booking Request Sent!</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-            Your request has been dispatched to <strong>{worker.name}</strong>. You will receive a notification as soon as they accept.
+      <div className="section container" style={{ textAlign: 'center', maxWidth: '520px' }}>
+        <div className="card-white" style={{ padding: '3.5rem 2rem' }}>
+          <div style={{
+            width: '72px',
+            height: '72px',
+            borderRadius: '50%',
+            background: 'var(--accent-green-soft)',
+            border: '1px solid var(--accent-green-border)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '1.25rem',
+            color: 'var(--accent-green)',
+            boxShadow: 'var(--accent-green-glow)'
+          }}>
+            <CheckCircle size={38} />
+          </div>
+          <h2 style={{ fontSize: '1.8rem', marginBottom: '0.65rem', color: 'var(--text-main)' }}>Booking Request Sent!</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', lineHeight: 1.6 }}>
+            Your request has been dispatched to <strong style={{ color: 'var(--text-main)' }}>{worker.name}</strong>. You will receive a notification as soon as they accept.
           </p>
           <button onClick={() => navigate('/my-bookings')} className="btn btn-primary btn-block">
             View My Bookings
@@ -68,12 +82,12 @@ const Booking = () => {
   return (
     <div className="section container">
       <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Book Gig Worker</h1>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Complete details for hiring <strong>{worker.name}</strong></p>
+        <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--text-main)' }}>Book Gig Worker</h1>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Complete details for hiring <strong style={{ color: 'var(--text-main)' }}>{worker.name}</strong></p>
 
         <form onSubmit={handleSubmit} className="card-white" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Scheduled Date</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Scheduled Date</label>
             <input
               type="date"
               required
@@ -85,7 +99,7 @@ const Booking = () => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Start Time</label>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Start Time</label>
               <input
                 type="time"
                 required
@@ -95,7 +109,7 @@ const Booking = () => {
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Estimated Hours</label>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Estimated Hours</label>
               <input
                 type="number"
                 min="1"
@@ -109,7 +123,7 @@ const Booking = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Service Address</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Service Address</label>
             <input
               type="text"
               required
@@ -121,7 +135,7 @@ const Booking = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Job Notes & Instructions</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Job Notes & Instructions</label>
             <textarea
               className="form-control"
               rows="3"
@@ -131,12 +145,30 @@ const Booking = () => {
             />
           </div>
 
-          <div style={{ background: '#f8fafc', padding: '1rem', borderRadius: 'var(--radius)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{
+            background: 'var(--bg-surface-elevated)',
+            padding: '1.25rem',
+            borderRadius: 'var(--radius)',
+            border: '1px solid var(--border-color)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '0.75rem'
+          }}>
             <div>
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Estimated Cost ({formData.hours} hrs @ {formatCurrency(worker.hourlyRate)}/hr)</span>
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-main)' }}>{formatCurrency(total)}</div>
+              <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)' }}>Estimated Cost ({formData.hours} hrs @ {formatCurrency(worker.hourlyRate)}/hr)</span>
+              <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)' }}>{formatCurrency(total)}</div>
             </div>
-            <span style={{ fontSize: '0.75rem', background: '#e0e7ff', color: '#4338ca', padding: '0.2rem 0.5rem', borderRadius: '4px', fontWeight: 600 }}>
+            <span style={{
+              fontSize: '0.75rem',
+              background: 'rgba(99, 102, 241, 0.12)',
+              color: '#818cf8',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              padding: '0.25rem 0.65rem',
+              borderRadius: '6px',
+              fontWeight: 600
+            }}>
               Pay After Job Completion
             </span>
           </div>
@@ -151,3 +183,4 @@ const Booking = () => {
 };
 
 export default Booking;
+

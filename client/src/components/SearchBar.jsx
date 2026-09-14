@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Search, MapPin } from 'lucide-react';
 
 const SearchBar = ({ categories = [], initialCategory = '', initialLocation = '' }) => {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
@@ -16,58 +17,53 @@ const SearchBar = ({ categories = [], initialCategory = '', initialLocation = ''
   };
 
   return (
-    <form
-      onSubmit={handleSearch}
-      style={{
-        background: '#ffffff',
-        borderRadius: '12px',
-        padding: '0.6rem 0.85rem',
-        boxShadow: 'var(--shadow-md)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-        flexWrap: 'wrap',
-      }}
-    >
+    <form onSubmit={handleSearch} className="search-bar-container">
       {/* Category Selection Dropdown */}
-      <div style={{ flex: 1, minWidth: '180px' }}>
+      <div className="search-input-box">
+        <Search size={20} color="var(--accent-green)" />
         <select
-          className="form-control"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          style={{ border: 'none', background: 'transparent', cursor: 'pointer', fontWeight: 500 }}
+          style={{
+            border: 'none',
+            background: 'transparent',
+            color: 'var(--text-main)',
+            width: '100%',
+            outline: 'none',
+            cursor: 'pointer',
+            fontSize: '0.95rem'
+          }}
         >
-          <option value="">All categories</option>
+          <option value="" style={{ background: 'var(--bg-surface)' }}>All Categories</option>
           {categories.map((cat) => (
-            <option key={cat._id || cat.slug} value={cat.slug}>
+            <option key={cat._id || cat.slug} value={cat.slug} style={{ background: 'var(--bg-surface)' }}>
               {cat.name}
             </option>
           ))}
-          <option value="electrician">Electrician</option>
-          <option value="plumber">Plumber</option>
-          <option value="carpenter">Carpenter</option>
-          <option value="painter">Painter</option>
-          <option value="ac-repair">AC Repair</option>
-          <option value="cleaner">Home Cleaner</option>
+          <option value="electrician" style={{ background: 'var(--bg-surface)' }}>Electrician</option>
+          <option value="plumber" style={{ background: 'var(--bg-surface)' }}>Plumber</option>
+          <option value="carpenter" style={{ background: 'var(--bg-surface)' }}>Carpenter</option>
+          <option value="painter" style={{ background: 'var(--bg-surface)' }}>Painter</option>
+          <option value="ac-repair" style={{ background: 'var(--bg-surface)' }}>AC Repair</option>
+          <option value="cleaner" style={{ background: 'var(--bg-surface)' }}>Home Cleaner</option>
         </select>
       </div>
 
-      <div style={{ width: '1px', height: '24px', backgroundColor: '#e2e8f0' }} className="search-divider" />
+      <div className="search-divider" />
 
       {/* Location Input */}
-      <div style={{ flex: 1, minWidth: '180px' }}>
+      <div className="search-input-box">
+        <MapPin size={20} color="var(--accent-green)" />
         <input
           type="text"
           placeholder="Enter your area or city"
-          className="form-control"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          style={{ border: 'none', background: 'transparent' }}
         />
       </div>
 
       {/* Search Submit Button */}
-      <button type="submit" className="btn btn-primary" style={{ padding: '0.65rem 1.75rem' }}>
+      <button type="submit" className="btn btn-primary" style={{ padding: '0.75rem 1.6rem', borderRadius: 'var(--radius)' }}>
         Search
       </button>
     </form>
@@ -75,3 +71,4 @@ const SearchBar = ({ categories = [], initialCategory = '', initialLocation = ''
 };
 
 export default SearchBar;
+

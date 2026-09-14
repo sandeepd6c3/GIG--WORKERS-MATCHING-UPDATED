@@ -11,7 +11,23 @@ const AdminPayments = () => {
     { header: 'Worker Payout', accessor: 'worker' },
     { header: 'Gross Amount', accessor: 'amount', render: (row) => formatCurrency(row.amount) },
     { header: 'Platform Fee (10%)', accessor: 'fee', render: (row) => formatCurrency(row.amount * 0.1) },
-    { header: 'Status', accessor: 'status', render: (row) => <span style={{ background: '#dcfce7', color: '#15803d', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 700 }}>{row.status}</span> }
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (row) => (
+        <span style={{
+          background: 'var(--accent-green-soft)',
+          border: '1px solid var(--accent-green-border)',
+          color: 'var(--accent-green)',
+          padding: '0.2rem 0.65rem',
+          borderRadius: '12px',
+          fontSize: '0.75rem',
+          fontWeight: 700
+        }}>
+          {row.status}
+        </span>
+      )
+    }
   ];
 
   const payments = [
@@ -20,12 +36,12 @@ const AdminPayments = () => {
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: '2rem' }}>
-          <h1 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Financial Transactions & Payouts</h1>
+        <main style={{ flex: 1, padding: '2.5rem' }}>
+          <h1 style={{ fontSize: '1.9rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>Financial Transactions & Payouts</h1>
           <DataTable columns={columns} data={payments} />
         </main>
       </div>
@@ -34,3 +50,4 @@ const AdminPayments = () => {
 };
 
 export default AdminPayments;
+

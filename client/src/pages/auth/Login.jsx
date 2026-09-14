@@ -29,28 +29,41 @@ const Login = () => {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 140px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-      <div className="card-white" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem' }}>
+    <div style={{ minHeight: 'calc(100vh - 140px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 1rem' }}>
+      <div className="card-white" style={{ width: '100%', maxWidth: '440px', padding: '2.5rem', boxShadow: 'var(--shadow-lg)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
             background: 'var(--accent-green-soft)',
+            border: '1px solid var(--accent-green-border)',
             color: 'var(--accent-green)',
-            width: '48px',
-            height: '48px',
-            borderRadius: '12px',
+            width: '52px',
+            height: '52px',
+            borderRadius: '14px',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: '0.75rem'
+            marginBottom: '1rem',
+            boxShadow: 'var(--accent-green-glow)'
           }}>
-            <ShieldCheck size={28} />
+            <ShieldCheck size={30} />
           </div>
-          <h2 style={{ fontSize: '1.6rem', marginBottom: '0.3rem' }}>Welcome Back</h2>
+          <h2 style={{ fontSize: '1.75rem', marginBottom: '0.4rem', color: 'var(--text-main)' }}>Welcome Back</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Log in to access your GigMatch account</p>
         </div>
 
         {error && (
-          <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '0.75rem 1rem', borderRadius: 'var(--radius)', fontSize: '0.875rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{
+            background: 'rgba(239, 68, 68, 0.12)',
+            border: '1px solid rgba(239, 68, 68, 0.3)',
+            color: '#f87171',
+            padding: '0.75rem 1rem',
+            borderRadius: 'var(--radius)',
+            fontSize: '0.875rem',
+            marginBottom: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem'
+          }}>
             <AlertCircle size={18} />
             <span>{error}</span>
           </div>
@@ -58,7 +71,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Email Address</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Email Address</label>
             <div style={{ position: 'relative' }}>
               <Mail size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
               <input
@@ -75,7 +88,7 @@ const Login = () => {
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 600 }}>Password</label>
+              <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)' }}>Password</label>
               <Link to="/forgot-password" style={{ fontSize: '0.8rem', color: 'var(--accent-green)' }}>Forgot password?</Link>
             </div>
             <div style={{ position: 'relative' }}>
@@ -92,12 +105,12 @@ const Login = () => {
             </div>
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-primary btn-block" style={{ marginTop: '0.5rem' }}>
+          <button type="submit" disabled={loading} className="btn btn-primary btn-block" style={{ marginTop: '0.5rem', padding: '0.85rem' }}>
             {loading ? 'Signing In...' : 'Log In'}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+        <p style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
           Don't have an account? <Link to="/register" style={{ color: 'var(--accent-green)', fontWeight: 600 }}>Register Now</Link>
         </p>
       </div>
@@ -106,3 +119,4 @@ const Login = () => {
 };
 
 export default Login;
+

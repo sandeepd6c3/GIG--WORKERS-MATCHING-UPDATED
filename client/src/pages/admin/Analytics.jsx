@@ -6,7 +6,7 @@ import { TrendingUp, Users, Calendar, Award } from 'lucide-react';
 
 const AdminAnalytics = () => {
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />

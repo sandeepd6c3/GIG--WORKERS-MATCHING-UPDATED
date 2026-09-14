@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MapPin, SlidersHorizontal } from 'lucide-react';
+import { Search, MapPin } from 'lucide-react';
 
 const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '' }) => {
   const [query, setQuery] = useState(initialQuery);
@@ -13,44 +13,30 @@ const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '' }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{
-      background: '#ffffff',
-      borderRadius: 'var(--radius-lg)',
-      padding: '0.6rem 0.75rem',
-      boxShadow: 'var(--shadow-lg)',
-      display: 'flex',
-      alignItems: 'center',
-      gap: '0.5rem',
-      flexWrap: 'wrap',
-      border: '1px solid var(--border-color)',
-      maxWidth: '800px',
-      margin: '0 auto'
-    }}>
-      <div style={{ flex: 1, minWidth: '200px', display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0 0.5rem' }}>
+    <form onSubmit={handleSubmit} className="search-bar-container">
+      <div className="search-input-box">
         <Search size={20} color="var(--accent-green)" />
         <input
           type="text"
-          placeholder="What gig or service do you need? (e.g. Electrician)"
+          placeholder="What gig service do you need? (e.g. Electrician)"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.95rem', color: 'var(--text-main)' }}
         />
       </div>
 
-      <div className="search-divider" style={{ width: '1px', height: '28px', background: '#cbd5e1' }} />
+      <div className="search-divider" />
 
-      <div style={{ flex: 1, minWidth: '180px', display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0 0.5rem' }}>
+      <div className="search-input-box">
         <MapPin size={20} color="var(--accent-green)" />
         <input
           type="text"
-          placeholder="Location / Postal Code"
+          placeholder="Location / Area code"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.95rem', color: 'var(--text-main)' }}
         />
       </div>
 
-      <button type="submit" className="btn btn-primary" style={{ padding: '0.75rem 1.5rem', borderRadius: 'var(--radius)' }}>
+      <button type="submit" className="btn btn-primary" style={{ padding: '0.75rem 1.6rem', borderRadius: 'var(--radius)' }}>
         Find Matches
       </button>
     </form>
@@ -58,3 +44,4 @@ const SearchBar = ({ onSearch, initialQuery = '', initialLocation = '' }) => {
 };
 
 export default SearchBar;
+

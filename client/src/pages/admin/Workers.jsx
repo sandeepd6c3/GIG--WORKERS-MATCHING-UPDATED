@@ -9,19 +9,19 @@ const AdminWorkers = () => {
   const columns = [
     { header: 'Worker Name', accessor: 'name' },
     { header: 'Category', accessor: 'category' },
-    { header: 'Trust Tier', accessor: 'trustTier', render: (row) => <span className={`trust-badge ${row.trustTier.toLowerCase().includes('gold') ? 'gold' : 'silver'}`}>{row.trustTier}</span> },
+    { header: 'Trust Tier', accessor: 'trustTier', render: (row) => <span className={`trust-badge ${row.trustTier?.toLowerCase().includes('gold') ? 'gold' : 'silver'}`}>{row.trustTier || 'Silver Tier'}</span> },
     { header: 'Hourly Rate', accessor: 'hourlyRate', render: (row) => formatCurrency(row.hourlyRate) },
     { header: 'Rating', accessor: 'rating', render: (row) => `⭐ ${row.rating}` },
     { header: 'Jobs Completed', accessor: 'completedJobs' }
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: '2rem' }}>
-          <h1 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Gig Worker Management</h1>
+        <main style={{ flex: 1, padding: '2.5rem' }}>
+          <h1 style={{ fontSize: '1.9rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>Gig Worker Management</h1>
           <DataTable columns={columns} data={MOCK_WORKERS} />
         </main>
       </div>
@@ -30,3 +30,4 @@ const AdminWorkers = () => {
 };
 
 export default AdminWorkers;
+

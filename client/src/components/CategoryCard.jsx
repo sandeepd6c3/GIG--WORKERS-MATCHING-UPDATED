@@ -27,14 +27,16 @@ const CategoryCard = ({ category }) => {
     >
       <div
         style={{
-          width: '44px',
-          height: '44px',
-          borderRadius: '8px',
+          width: '46px',
+          height: '46px',
+          borderRadius: '10px',
           background: 'var(--accent-green-soft)',
+          border: '1px solid var(--accent-green-border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           marginBottom: '1rem',
+          boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15)'
         }}
       >
         <IconComponent size={22} style={{ color: 'var(--accent-green)' }} />
@@ -47,3 +49,4 @@ const CategoryCard = ({ category }) => {
 };
 
 export default CategoryCard;
+

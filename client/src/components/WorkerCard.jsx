@@ -44,8 +44,9 @@ const WorkerCard = ({ worker }) => {
             width: '50px',
             height: '50px',
             borderRadius: '50%',
-            background: 'var(--navy-dark)',
-            color: '#ffffff',
+            background: 'var(--bg-surface-elevated)',
+            border: '1px solid var(--border-color)',
+            color: 'var(--accent-green)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -74,17 +75,17 @@ const WorkerCard = ({ worker }) => {
 
       {/* Rating & Exp Stats */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-        <span style={{ color: '#d97706', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-          <Star size={14} fill="#d97706" /> {averageRating.toFixed(1)}
+        <span style={{ color: '#fbbf24', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+          <Star size={14} fill="#fbbf24" /> {averageRating.toFixed(1)}
         </span>
         <span>{completedJobs} jobs done</span>
         <span>{experienceYears} yrs exp</span>
       </div>
 
       {/* Availability & Price */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', paddingTop: '0.75rem', borderTop: '1px solid #f1f5f9', fontSize: '0.85rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: isAvailable ? '#16a34a' : '#64748b', fontWeight: 500 }}>
-          <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: isAvailable ? '#16a34a' : '#64748b' }} />
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: isAvailable ? 'var(--accent-green)' : 'var(--text-muted)', fontWeight: 500 }}>
+          <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: isAvailable ? 'var(--accent-green)' : 'var(--text-muted)' }} />
           {isAvailable ? 'Available today' : 'Unavailable'}
         </div>
 
@@ -108,3 +109,4 @@ const WorkerCard = ({ worker }) => {
 };
 
 export default WorkerCard;
+

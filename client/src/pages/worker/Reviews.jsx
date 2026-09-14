@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, ThumbsUp } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 const WorkerReviews = () => {
   const reviews = [
@@ -9,19 +9,19 @@ const WorkerReviews = () => {
 
   return (
     <div className="section container">
-      <h1 style={{ fontSize: '2rem', marginBottom: '0.4rem' }}>Customer Reviews</h1>
+      <h1 style={{ fontSize: '2rem', marginBottom: '0.4rem', color: 'var(--text-main)' }}>Customer Reviews</h1>
       <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Feedback and ratings submitted by hiring clients</p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
         {reviews.map((rev) => (
-          <div key={rev.id} className="card-white">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-              <h3 style={{ fontSize: '1.05rem' }}>{rev.customer}</h3>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#d97706', fontWeight: 700 }}>
-                <Star size={16} fill="#d97706" /> {rev.rating}.0
+          <div key={rev.id} className="card-white card-white-hover">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+              <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)' }}>{rev.customer}</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#fbbf24', fontWeight: 700 }}>
+                <Star size={16} fill="#fbbf24" /> {rev.rating}.0
               </div>
             </div>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>{rev.comment}</p>
+            <p style={{ fontSize: '0.92rem', color: 'var(--text-secondary)', marginBottom: '0.65rem', lineHeight: 1.6 }}>{rev.comment}</p>
             <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{rev.date}</span>
           </div>
         ))}
@@ -31,3 +31,4 @@ const WorkerReviews = () => {
 };
 
 export default WorkerReviews;
+

@@ -19,3 +19,15 @@ export const getAllUsers = async (req, res) => {
   const users = await User.find().select('-password');
   res.json(users);
 };
+
+export const getPendingVerifications = async (req, res) => {
+  const pendingWorkers = await Worker.find({ trustTier: { $ne: 'Gold Tier' } }).populate('userId', 'name email');
+  const verifications = pendingWorkers.map(w => ({
+    _id: w._id,
+    workerName: w.userId?.name || w.title,
+    category: w.categoryName,
+    documentType: `${w.categoryName} Trade Certificate`,
+    status: 'pending'
+  }));
+  res.json(verifications);
+};

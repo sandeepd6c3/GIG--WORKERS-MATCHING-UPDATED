@@ -24,7 +24,7 @@ const AdminVerification = () => {
         <button onClick={() => handleApprove(row._id)} className="btn btn-primary btn-sm">
           <CheckCircle2 size={14} /> Approve Badge
         </button>
-        <button onClick={() => handleApprove(row._id)} className="btn btn-outline btn-sm" style={{ color: '#ef4444', borderColor: '#fee2e2' }}>
+        <button onClick={() => handleApprove(row._id)} className="btn btn-outline btn-sm" style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
           <XCircle size={14} /> Reject
         </button>
       </div>
@@ -32,7 +32,7 @@ const AdminVerification = () => {
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />

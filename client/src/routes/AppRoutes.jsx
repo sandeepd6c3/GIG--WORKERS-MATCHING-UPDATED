@@ -39,6 +39,7 @@ import AdminSettings from '../pages/admin/Settings';
 
 // Common
 import ProtectedRoute from '../components/common/ProtectedRoute';
+import NotFound from '../pages/common/NotFound';
 
 const AppRoutes = () => {
   return (
@@ -78,6 +79,9 @@ const AppRoutes = () => {
       <Route path="/admin/analytics" element={<ProtectedRoute allowedRoles={['admin']}><AdminAnalytics /></ProtectedRoute>} />
       <Route path="/admin/verification" element={<ProtectedRoute allowedRoles={['admin']}><AdminVerification /></ProtectedRoute>} />
       <Route path="/admin/settings" element={<ProtectedRoute allowedRoles={['admin']}><AdminSettings /></ProtectedRoute>} />
+
+      {/* 404 Catch-All Route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

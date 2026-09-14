@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CategoryCard from '../../components/customer/CategoryCard';
 import categoryService from '../../services/categoryService';
 import Loader from '../../components/common/Loader';
+import { Sparkles } from 'lucide-react';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -17,10 +18,10 @@ const Categories = () => {
 
   return (
     <div className="section container">
-      <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem auto' }}>
-        <span className="eyebrow">Explore Marketplace</span>
-        <h1 style={{ fontSize: '2.4rem', marginBottom: '0.75rem' }}>Gig Service Categories</h1>
-        <p style={{ color: 'var(--text-muted)' }}>
+      <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto 3.5rem auto' }}>
+        <span className="eyebrow"><Sparkles size={13} /> Explore Marketplace</span>
+        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.75rem', color: 'var(--text-main)' }}>Gig Service Categories</h1>
+        <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
           Browse trusted, background-checked professionals available for hire in your local area across all trade categories.
         </p>
       </div>
@@ -35,3 +36,4 @@ const Categories = () => {
 };
 
 export default Categories;
+

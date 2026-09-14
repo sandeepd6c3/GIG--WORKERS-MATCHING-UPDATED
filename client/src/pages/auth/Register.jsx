@@ -25,41 +25,45 @@ const Register = () => {
   };
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 140px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem 1rem' }}>
-      <div className="card-white" style={{ width: '100%', maxWidth: '480px', padding: '2.5rem' }}>
+    <div style={{ minHeight: 'calc(100vh - 140px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem 1rem' }}>
+      <div className="card-white" style={{ width: '100%', maxWidth: '480px', padding: '2.5rem', boxShadow: 'var(--shadow-lg)' }}>
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
           <div style={{
             background: 'var(--accent-green-soft)',
+            border: '1px solid var(--accent-green-border)',
             color: 'var(--accent-green)',
-            width: '48px',
-            height: '48px',
-            borderRadius: '12px',
+            width: '52px',
+            height: '52px',
+            borderRadius: '14px',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: '0.75rem'
+            marginBottom: '1rem',
+            boxShadow: 'var(--accent-green-glow)'
           }}>
-            <ShieldCheck size={28} />
+            <ShieldCheck size={30} />
           </div>
-          <h2 style={{ fontSize: '1.6rem', marginBottom: '0.3rem' }}>Create Your Account</h2>
+          <h2 style={{ fontSize: '1.75rem', marginBottom: '0.4rem', color: 'var(--text-main)' }}>Create Your Account</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Join thousands of customers and gig professionals</p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>I want to...</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.5rem', color: 'var(--text-main)' }}>I want to...</label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <button
                 type="button"
                 onClick={() => setFormData({ ...formData, role: 'customer' })}
                 style={{
-                  padding: '0.75rem',
+                  padding: '0.85rem',
                   borderRadius: 'var(--radius)',
                   border: `2px solid ${formData.role === 'customer' ? 'var(--accent-green)' : 'var(--border-color)'}`,
-                  background: formData.role === 'customer' ? 'var(--accent-green-soft)' : '#fff',
+                  background: formData.role === 'customer' ? 'var(--accent-green-soft)' : 'var(--bg-surface-elevated)',
+                  color: formData.role === 'customer' ? 'var(--accent-green)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.85rem'
+                  fontSize: '0.88rem',
+                  transition: 'var(--transition)'
                 }}
               >
                 Hire Gig Workers
@@ -68,13 +72,15 @@ const Register = () => {
                 type="button"
                 onClick={() => setFormData({ ...formData, role: 'worker' })}
                 style={{
-                  padding: '0.75rem',
+                  padding: '0.85rem',
                   borderRadius: 'var(--radius)',
                   border: `2px solid ${formData.role === 'worker' ? 'var(--accent-green)' : 'var(--border-color)'}`,
-                  background: formData.role === 'worker' ? 'var(--accent-green-soft)' : '#fff',
+                  background: formData.role === 'worker' ? 'var(--accent-green-soft)' : 'var(--bg-surface-elevated)',
+                  color: formData.role === 'worker' ? 'var(--accent-green)' : 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontWeight: 600,
-                  fontSize: '0.85rem'
+                  fontSize: '0.88rem',
+                  transition: 'var(--transition)'
                 }}
               >
                 Offer My Services
@@ -83,7 +89,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Full Name</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Full Name</label>
             <input
               type="text"
               required
@@ -95,7 +101,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Email Address</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Email Address</label>
             <input
               type="email"
               required
@@ -107,7 +113,7 @@ const Register = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem' }}>Password</label>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.4rem', color: 'var(--text-main)' }}>Password</label>
             <input
               type="password"
               required
@@ -118,12 +124,12 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-primary btn-block">
+          <button type="submit" disabled={loading} className="btn btn-primary btn-block" style={{ padding: '0.85rem' }}>
             {loading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+        <p style={{ textAlign: 'center', marginTop: '1.75rem', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
           Already have an account? <Link to="/login" style={{ color: 'var(--accent-green)', fontWeight: 600 }}>Log In</Link>
         </p>
       </div>
@@ -132,3 +138,4 @@ const Register = () => {
 };
 
 export default Register;
+

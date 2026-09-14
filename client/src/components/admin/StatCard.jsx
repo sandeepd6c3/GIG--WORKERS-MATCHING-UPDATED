@@ -1,11 +1,11 @@
 import React from 'react';
 
-const StatCard = ({ title, value, icon: Icon, change, color = '#20b486' }) => {
+const StatCard = ({ title, value, icon: Icon, change, color = 'var(--accent-green)' }) => {
   return (
     <div className="card-white" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <div>
         <span style={{ fontSize: '0.825rem', color: 'var(--text-muted)', fontWeight: 500 }}>{title}</span>
-        <h3 style={{ fontSize: '1.6rem', color: 'var(--text-main)', marginTop: '0.2rem', marginBottom: '0.2rem' }}>{value}</h3>
+        <h3 style={{ fontSize: '1.75rem', color: 'var(--text-main)', marginTop: '0.25rem', marginBottom: '0.25rem', fontFamily: 'Sora, sans-serif' }}>{value}</h3>
         {change && (
           <span style={{ fontSize: '0.78rem', color: color, fontWeight: 600 }}>
             {change}
@@ -14,14 +14,16 @@ const StatCard = ({ title, value, icon: Icon, change, color = '#20b486' }) => {
       </div>
       {Icon && (
         <div style={{
-          width: '48px',
-          height: '48px',
+          width: '50px',
+          height: '50px',
           borderRadius: '12px',
-          background: `${color}15`,
+          background: 'var(--bg-surface-elevated)',
+          border: '1px solid var(--border-color)',
           color: color,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          boxShadow: 'var(--shadow-sm)'
         }}>
           <Icon size={24} />
         </div>
@@ -31,3 +33,4 @@ const StatCard = ({ title, value, icon: Icon, change, color = '#20b486' }) => {
 };
 
 export default StatCard;
+

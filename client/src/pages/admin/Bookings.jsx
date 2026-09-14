@@ -12,7 +12,24 @@ const AdminBookings = () => {
     { header: 'Category', accessor: 'category' },
     { header: 'Date', accessor: 'date', render: (row) => formatDate(row.date) },
     { header: 'Amount', accessor: 'totalAmount', render: (row) => formatCurrency(row.totalAmount) },
-    { header: 'Status', accessor: 'status', render: (row) => <span style={{ background: '#dcfce7', color: '#15803d', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 700 }}>{row.status}</span> }
+    {
+      header: 'Status',
+      accessor: 'status',
+      render: (row) => (
+        <span style={{
+          background: row.status === 'accepted' ? 'var(--accent-green-soft)' : 'rgba(245, 158, 11, 0.12)',
+          border: `1px solid ${row.status === 'accepted' ? 'var(--accent-green-border)' : 'rgba(245, 158, 11, 0.3)'}`,
+          color: row.status === 'accepted' ? 'var(--accent-green)' : '#fbbf24',
+          padding: '0.2rem 0.65rem',
+          borderRadius: '12px',
+          fontSize: '0.75rem',
+          fontWeight: 700,
+          textTransform: 'capitalize'
+        }}>
+          {row.status}
+        </span>
+      )
+    }
   ];
 
   const bookings = [
@@ -21,12 +38,12 @@ const AdminBookings = () => {
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 70px)', background: '#f8fafc' }}>
+    <div style={{ minHeight: 'calc(100vh - 70px)', background: 'var(--bg-page)' }}>
       <AdminNavbar />
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <main style={{ flex: 1, padding: '2rem' }}>
-          <h1 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>All Platform Bookings</h1>
+        <main style={{ flex: 1, padding: '2.5rem' }}>
+          <h1 style={{ fontSize: '1.9rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>All Platform Bookings</h1>
           <DataTable columns={columns} data={bookings} />
         </main>
       </div>
@@ -35,3 +52,4 @@ const AdminBookings = () => {
 };
 
 export default AdminBookings;
+
