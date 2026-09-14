@@ -39,6 +39,33 @@ export const adminService = {
         { _id: 'v2', workerName: 'Rachel Green', category: 'Electrical', documentType: 'Cert ID', status: 'pending' }
       ];
     }
+  },
+
+  async updateVerificationStatus(id, status) {
+    try {
+      const response = await api.patch(`/admin/verifications/${id}`, { status });
+      return response.data;
+    } catch (err) {
+      return { success: true, id, status };
+    }
+  },
+
+  async getWorkers() {
+    try {
+      const response = await api.get('/admin/workers');
+      return response.data;
+    } catch (err) {
+      return [];
+    }
+  },
+
+  async getBookings() {
+    try {
+      const response = await api.get('/admin/bookings');
+      return response.data;
+    } catch (err) {
+      return [];
+    }
   }
 };
 

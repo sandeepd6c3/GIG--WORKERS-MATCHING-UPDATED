@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import DataTable from '../../components/admin/DataTable';
+import adminService from '../../services/adminService';
+import Loader from '../../components/common/Loader';
 
 const AdminUsers = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    adminService.getUsers()
+      .then(res => setUsers(res))
+      .finally(() => setLoading(false));
+  }, []);
+
   const columns = [
     { header: 'ID', accessor: '_id' },
     { header: 'Full Name', accessor: 'name' },
@@ -22,17 +33,10 @@ const AdminUsers = () => {
           fontSize: '0.75rem',
           fontWeight: 700
         }}>
-          {row.status}
+          {row.status || 'Active'}
         </span>
       )
     }
-  ];
-
-  const users = [
-    { _id: 'u1', name: 'Alex Morgan', email: 'alex@example.com', role: 'customer', status: 'Active' },
-    { _id: 'u2', name: 'Sarah Jenkins', email: 'sarah.j@example.com', role: 'worker', status: 'Active' },
-    { _id: 'u3', name: 'David Rodriguez', email: 'david.r@example.com', role: 'worker', status: 'Active' },
-    { _id: 'u4', name: 'Super Admin', email: 'admin@gigmatch.com', role: 'admin', status: 'Active' }
   ];
 
   return (
@@ -42,7 +46,11 @@ const AdminUsers = () => {
         <Sidebar />
         <main style={{ flex: 1, padding: '2.5rem' }}>
           <h1 style={{ fontSize: '1.9rem', marginBottom: '1.5rem', color: 'var(--text-main)' }}>User Management</h1>
-          <DataTable columns={columns} data={users} />
+          {loading ? (
+            <Loader label="Fetching platform users..." />
+          ) : (
+            <DataTable columns={columns} data={users} emptyMessage="No platform users found." />
+          )}
         </main>
       </div>
     </div>

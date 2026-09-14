@@ -35,6 +35,15 @@ export const workerService = {
     } catch (err) {
       return { success: true, isAvailable };
     }
+  },
+
+  async matchWorkers(requirement) {
+    try {
+      const response = await api.post('/matching/workers', requirement);
+      return response.data || response;
+    } catch (err) {
+      throw err;
+    }
   }
 };
 

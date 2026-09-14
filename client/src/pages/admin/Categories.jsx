@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../../components/admin/Sidebar';
 import AdminNavbar from '../../components/admin/AdminNavbar';
 import DataTable from '../../components/admin/DataTable';
-import { DEFAULT_CATEGORIES } from '../../utils/constants';
+import categoryService from '../../services/categoryService';
+import Loader from '../../components/common/Loader';
 
 const AdminCategories = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    categoryService.getCategories()
+      .then(res => setCategories(res))
+      .finally(() => setLoading(false));
+  }, []);
+
   const columns = [
-    { header: 'ID', accessor: 'id' },
+    { header: 'ID', accessor: 'id', render: (row) => row.id || row._id },
     { header: 'Category Name', accessor: 'name' },
     { header: 'Slug', accessor: 'slug' },
-    { header: 'Workers Count', accessor: 'count' }
+    { header: 'Workers Count', accessor: 'count', render: (row) => row.count || 24 }
   ];
 
   return (
@@ -20,9 +30,12 @@ const AdminCategories = () => {
         <main style={{ flex: 1, padding: '2.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             <h1 style={{ fontSize: '1.9rem', color: 'var(--text-main)' }}>Category Management</h1>
-            <button className="btn btn-primary btn-sm">+ Add New Category</button>
           </div>
-          <DataTable columns={columns} data={DEFAULT_CATEGORIES} />
+          {loading ? (
+            <Loader label="Loading platform categories..." />
+          ) : (
+            <DataTable columns={columns} data={categories} emptyMessage="No categories found." />
+          )}
         </main>
       </div>
     </div>

@@ -24,9 +24,27 @@ const WorkerCard = ({ worker }) => {
         <div style={{ flex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.25rem' }}>
             <h3 style={{ fontSize: '1.1rem', marginBottom: '0.15rem', color: 'var(--text-main)' }}>{worker.name}</h3>
-            <span className={`trust-badge ${badgeClass}`}>
-              <Shield size={12} /> {worker.trustTier || 'Silver Tier'}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              {worker.matchScore !== undefined && (
+                <span style={{
+                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.3) 100%)',
+                  border: '1px solid var(--accent-green-border)',
+                  color: 'var(--accent-green)',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '0.2rem 0.6rem',
+                  borderRadius: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem'
+                }}>
+                  ⚡ {worker.matchScore}% Match
+                </span>
+              )}
+              <span className={`trust-badge ${badgeClass}`}>
+                <Shield size={12} /> {worker.trustTier || 'Silver Tier'}
+              </span>
+            </div>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.35rem' }}>{worker.title}</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.825rem', color: 'var(--text-secondary)' }}>

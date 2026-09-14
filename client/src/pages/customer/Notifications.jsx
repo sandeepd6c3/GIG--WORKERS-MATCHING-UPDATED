@@ -18,15 +18,22 @@ const CustomerNotifications = () => {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {notifications.map((n) => (
-          <div key={n.id} className="card-white" style={{ borderLeft: `4px solid ${n.read ? 'var(--border-color)' : 'var(--accent-green)'}` }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <h3 style={{ fontSize: '1.05rem', marginBottom: '0.25rem', color: 'var(--text-main)' }}>{n.title}</h3>
-              <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{n.date}</span>
+        {notifications.length > 0 ? (
+          notifications.map((n) => (
+            <div key={n._id || n.id} className="card-white" style={{ borderLeft: `4px solid ${n.read ? 'var(--border-color)' : 'var(--accent-green)'}` }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.25rem', color: 'var(--text-main)' }}>{n.title}</h3>
+                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{n.date || (n.createdAt ? new Date(n.createdAt).toLocaleDateString() : 'Recent')}</span>
+              </div>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{n.message}</p>
             </div>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{n.message}</p>
+          ))
+        ) : (
+          <div className="card-white" style={{ textAlign: 'center', padding: '3.5rem 1rem' }}>
+            <h3 style={{ color: 'var(--text-main)', marginBottom: '0.5rem' }}>No Notifications</h3>
+            <p style={{ color: 'var(--text-muted)' }}>You're all caught up with alerts & booking updates.</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ const MyBookings = () => {
                   </div>
                 </div>
 
-                <div style={{ textAlign: 'right' }}>
+                <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
                   <span style={{
                     display: 'inline-block',
                     padding: '0.3rem 0.85rem',
@@ -67,7 +67,6 @@ const MyBookings = () => {
                     fontSize: '0.78rem',
                     fontWeight: 700,
                     textTransform: 'capitalize',
-                    marginBottom: '0.5rem',
                     background: badge.bg,
                     color: badge.text,
                     border: `1px solid ${badge.border}`
@@ -75,6 +74,27 @@ const MyBookings = () => {
                     {b.status}
                   </span>
                   <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-main)' }}>{formatCurrency(b.totalAmount)}</div>
+                  
+                  {b.status === 'completed' && !b.isPaid && (
+                    <button
+                      onClick={async () => {
+                        try {
+                          await bookingService.updateBookingStatus(b._id, 'completed');
+                          alert(`Payment of ${formatCurrency(b.totalAmount)} processed successfully via Razorpay!`);
+                          setBookings(prev => prev.map(item => item._id === b._id ? { ...item, isPaid: true } : item));
+                        } catch (err) {
+                          alert(err.message || 'Payment processing failed');
+                        }
+                      }}
+                      className="btn btn-primary btn-sm"
+                      style={{ marginTop: '0.25rem' }}
+                    >
+                      💳 Pay Now
+                    </button>
+                  )}
+                  {b.isPaid && (
+                    <span style={{ fontSize: '0.75rem', color: 'var(--accent-green)', fontWeight: 600 }}>✓ Paid Online</span>
+                  )}
                 </div>
               </div>
             );

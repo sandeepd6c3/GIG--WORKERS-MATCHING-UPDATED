@@ -1,25 +1,44 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import api from '../services/api';
 
 export const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
-  const [notifications, setNotifications] = useState([
-    { id: 'n1', title: 'Booking Confirmed', message: 'Sarah Jenkins accepted your electrical booking.', date: '10 mins ago', read: false },
-    { id: 'n2', title: 'New Review Received', message: 'Customer rated your plumbing service 5 stars!', date: '2 hours ago', read: true }
-  ]);
+  const [notifications, setNotifications] = useState([]);
 
-  const markAllAsRead = () => {
+  const fetchNotifications = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+      const response = await api.get('/notifications');
+      const list = Array.isArray(response) ? response : response.data || [];
+      setNotifications(list);
+    } catch (err) {
+      // Offline fallback
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
+
+  const markAllAsRead = async () => {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    try {
+      await api.patch('/notifications/read-all');
+    } catch (err) {
+      // Silently handle
+    }
   };
 
   const addNotification = (notif) => {
-    setNotifications(prev => [{ id: 'n_' + Date.now(), read: false, date: 'Just now', ...notif }, ...prev]);
+    setNotifications(prev => [{ _id: 'n_' + Date.now(), read: false, createdAt: new Date().toISOString(), ...notif }, ...prev]);
   };
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
   return (
-    <NotificationContext.Provider value={{ notifications, unreadCount, markAllAsRead, addNotification }}>
+    <NotificationContext.Provider value={{ notifications, unreadCount, markAllAsRead, addNotification, refreshNotifications: fetchNotifications }}>
       {children}
     </NotificationContext.Provider>
   );

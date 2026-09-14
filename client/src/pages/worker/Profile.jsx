@@ -1,21 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import api from '../../services/api';
 import { Save } from 'lucide-react';
 
 const WorkerProfile = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [formData, setFormData] = useState({
-    title: 'Master Electrician & Smart Home Specialist',
-    hourlyRate: 45,
-    bio: 'Licensed electrician with 8+ years experience specializing in high-efficiency residential wiring and smart home automation.',
-    skills: 'Wiring, EV Chargers, Circuit Panels, Smart Lighting',
-    location: 'Downtown, Sector 14'
+    title: user?.title || 'Professional Gig Specialist',
+    hourlyRate: user?.hourlyRate || 45,
+    bio: user?.bio || 'Certified specialist with proven local service experience.',
+    skills: Array.isArray(user?.skills) ? user.skills.join(', ') : (user?.skills || 'Repairs, Installation, Maintenance'),
+    location: user?.location || 'Downtown Sector'
   });
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        title: user.title || 'Professional Gig Specialist',
+        hourlyRate: user.hourlyRate || 45,
+        bio: user.bio || 'Certified specialist with proven local service experience.',
+        skills: Array.isArray(user.skills) ? user.skills.join(', ') : (user.skills || 'Repairs, Installation, Maintenance'),
+        location: user.location || 'Downtown Sector'
+      });
+    }
+  }, [user]);
+
+  const handleSave = async () => {
+    setError(null);
+    try {
+      const skillsArray = typeof formData.skills === 'string'
+        ? formData.skills.split(',').map(s => s.trim()).filter(Boolean)
+        : formData.skills;
+      const updated = await api.put('/users/profile', {
+        title: formData.title,
+        hourlyRate: Number(formData.hourlyRate),
+        bio: formData.bio,
+        skills: skillsArray,
+        location: formData.location
+      });
+      if (updated.data) {
+        setUser(updated.data);
+        localStorage.setItem('gigmatch_user', JSON.stringify(updated.data));
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to update profile');
+    }
   };
 
   return (

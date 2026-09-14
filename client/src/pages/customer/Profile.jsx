@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import api from '../../services/api';
 import { User, Mail, Phone, MapPin, Save } from 'lucide-react';
 
 const Profile = () => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [formData, setFormData] = useState({
-    name: user?.name || 'Alex Morgan',
-    email: user?.email || 'alex@example.com',
-    phone: '+1 (555) 234-5678',
-    address: '742 Evergreen Terrace, Sector 4'
+    name: user?.name || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    address: user?.address || ''
   });
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        address: user.address || ''
+      });
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    setError(null);
+    try {
+      const updated = await api.put('/users/profile', {
+        name: formData.name,
+        phone: formData.phone,
+        address: formData.address
+      });
+      if (updated.data) {
+        setUser(updated.data);
+        localStorage.setItem('gigmatch_user', JSON.stringify(updated.data));
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to update profile');
+    }
   };
 
   return (

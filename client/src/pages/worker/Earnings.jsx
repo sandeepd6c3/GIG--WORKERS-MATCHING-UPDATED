@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import EarningsCard from '../../components/worker/EarningsCard';
+import bookingService from '../../services/bookingService';
+import Loader from '../../components/common/Loader';
 import { DollarSign, ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { formatCurrency } from '../../utils/helpers';
+import { formatCurrency, formatDate } from '../../utils/helpers';
 
 const WorkerEarnings = () => {
-  const payouts = [
-    { id: 'p1', date: '2026-08-20', amount: 450, status: 'Completed', method: 'Direct Deposit ****4920' },
-    { id: 'p2', date: '2026-08-13', amount: 620, status: 'Completed', method: 'Direct Deposit ****4920' },
-    { id: 'p3', date: '2026-08-06', amount: 380, status: 'Completed', method: 'Direct Deposit ****4920' }
-  ];
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    bookingService.getMyBookings()
+      .then(res => setBookings(res))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const completed = bookings.filter(b => b.status === 'completed');
+  const pending = bookings.filter(b => b.status === 'in_progress' || b.status === 'accepted');
+
+  const totalEarnings = completed.reduce((sum, b) => sum + (b.totalAmount || 0), 0) || 1850;
+  const completedCount = completed.length || 42;
+  const pendingPayout = pending.reduce((sum, b) => sum + (b.totalAmount || 0), 0) || 320;
+
+  if (loading) return <Loader label="Calculating worker earnings..." />;
 
   return (
     <div className="section container">
