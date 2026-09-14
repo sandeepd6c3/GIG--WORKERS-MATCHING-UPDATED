@@ -22,6 +22,7 @@ import notificationRoutes from './routes/notificationRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import matchingRoutes from './routes/matchingRoutes.js';
+import { apiLimiter } from './middleware/rateLimiter.js';
 import { errorMiddleware } from './middleware/errorMiddleware.js';
 
 // Connect Database
@@ -50,6 +51,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
+app.use('/api', apiLimiter);
 
 // Health Check
 app.get('/api/v1/health', (req, res) => {
