@@ -13,11 +13,33 @@ export const apiLimiter = rateLimit({
 
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // Limit each IP to 10 requests per window for auth routes
+  max: parseInt(process.env.AUTH_RATE_LIMIT_MAX) || 25, // Limit each IP to 25 requests per window for auth routes
   standardHeaders: true,
   legacyHeaders: false,
   message: {
     status: 'error',
     message: 'Too many authentication attempts, please try again after 15 minutes',
+  },
+});
+
+export const otpSendLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: parseInt(process.env.OTP_SEND_LIMIT_MAX) || 15,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    status: 'error',
+    message: 'Too many OTP requests from this IP. Please try again after 15 minutes.',
+  },
+});
+
+export const otpVerifyLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: parseInt(process.env.OTP_VERIFY_LIMIT_MAX) || 25,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    status: 'error',
+    message: 'Too many OTP verification attempts. Please try again after 15 minutes.',
   },
 });

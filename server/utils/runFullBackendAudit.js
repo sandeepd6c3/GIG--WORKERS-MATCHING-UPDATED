@@ -114,7 +114,7 @@ const runAllTests = async () => {
   const regSuccess = await post('/auth/register', {
     name: 'Test New User',
     email: uniqueEmail,
-    password: 'securepassword123',
+    password: 'SecurePass@123',
     role: 'customer'
   });
   record('Auth', 'Successful Registration (201 Created)', regSuccess.status === 201 && !!regSuccess.data?.token);
@@ -123,7 +123,7 @@ const runAllTests = async () => {
   const regDup = await post('/auth/register', {
     name: 'Test Dup User',
     email: uniqueEmail,
-    password: 'securepassword123'
+    password: 'SecurePass@123'
   });
   record('Auth', 'Duplicate Email Registration Rejected (409 Conflict)', regDup.status === 409);
 

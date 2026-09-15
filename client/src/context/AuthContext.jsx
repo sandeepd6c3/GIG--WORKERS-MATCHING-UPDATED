@@ -47,13 +47,41 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const verifyOTPAndAuthenticate = async (otpData) => {
+    const data = await authService.verifyOTP(otpData);
+    if (data.user) {
+      setUser(data.user);
+      localStorage.setItem('gigmatch_user', JSON.stringify(data.user));
+    }
+    return data;
+  };
+
+  const loginWithGoogle = async ({ credential, role }) => {
+    const data = await authService.googleAuth({ credential, role });
+    if (data.user) {
+      setUser(data.user);
+      localStorage.setItem('gigmatch_user', JSON.stringify(data.user));
+    }
+    return data;
+  };
+
   const logout = () => {
     authService.logout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, setUser }}>
+    <AuthContext.Provider value={{
+      user,
+      loading,
+      login,
+      register,
+      sendOTP: authService.sendOTP,
+      verifyOTPAndAuthenticate,
+      loginWithGoogle,
+      logout,
+      setUser
+    }}>
       {children}
     </AuthContext.Provider>
   );

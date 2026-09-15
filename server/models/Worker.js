@@ -19,7 +19,8 @@ const workerSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
+      default: 'Gig Professional'
     },
     skills: [String],
     bio: {
@@ -29,7 +30,8 @@ const workerSchema = new mongoose.Schema(
     hourlyRate: {
       type: Number,
       required: true,
-      min: 0
+      min: 0,
+      default: 25
     },
     isAvailable: {
       type: Boolean,
@@ -38,7 +40,7 @@ const workerSchema = new mongoose.Schema(
     trustTier: {
       type: String,
       enum: ['Gold Tier', 'Silver Tier', 'Bronze Tier'],
-      default: 'Silver Tier'
+      default: 'Bronze Tier'
     },
     location: {
       type: String,
@@ -46,7 +48,7 @@ const workerSchema = new mongoose.Schema(
     },
     averageRating: {
       type: Number,
-      default: 4.8
+      default: 0
     },
     completedJobs: {
       type: Number,
@@ -54,11 +56,11 @@ const workerSchema = new mongoose.Schema(
     },
     experienceYears: {
       type: Number,
-      default: 5
+      default: 1
     },
     isVerified: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   { timestamps: true }

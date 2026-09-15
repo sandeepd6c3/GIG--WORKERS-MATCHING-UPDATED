@@ -7,10 +7,16 @@ export const protect = async (req, res, next) => {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'gigmatch_secret');
+      if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+        return res.status(500).json({ message: 'Server configuration error: invalid JWT secret' });
+      }
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await findUserById(decoded.id);
       if (!req.user) {
         return res.status(401).json({ message: 'User not found with this token' });
+      }
+      if (req.user.isActive === false) {
+        return res.status(401).json({ message: 'Account is deactivated. Please contact support.' });
       }
       return next();
     } catch (error) {
