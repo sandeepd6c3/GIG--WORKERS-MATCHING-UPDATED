@@ -9,10 +9,17 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import dns from 'dns';
 import User from '../models/User.js';
 import Category from '../models/Category.js';
 
 dotenv.config();
+
+if (process.env.MONGO_URI?.startsWith('mongodb+srv://')) {
+  try {
+    dns.setServers(['8.8.8.8', '1.1.1.1']);
+  } catch (e) {}
+}
 
 // ── Category Data (migrated from existing script.js) ──────────────
 const CATEGORIES = [
@@ -80,28 +87,37 @@ async function seedDatabase() {
     });
 
     // Seed Admin User
-    const hashedPassword = await bcrypt.hash('admin123', 10);
     const admin = await User.create({
       name: 'Admin User',
       email: 'admin@gigmatch.com',
       phone: '9999999999',
-      password: hashedPassword,
+      password: 'password123',
       role: 'admin',
       isEmailVerified: true,
     });
-    console.log(`👨‍💼 Created admin: admin@gigmatch.com / admin123`);
+    console.log(`👨‍💼 Created admin: admin@gigmatch.com / password123`);
 
     // Seed Demo Customer
-    const customerPassword = await bcrypt.hash('customer123', 10);
     const customer = await User.create({
       name: 'Rahul Gupta',
       email: 'customer@gigmatch.com',
       phone: '9876543210',
-      password: customerPassword,
+      password: 'password123',
       role: 'customer',
       isEmailVerified: true,
     });
-    console.log(`👤 Created demo customer: customer@gigmatch.com / customer123`);
+    console.log(`👤 Created demo customer: customer@gigmatch.com / password123`);
+
+    // Seed Inactive User for Auth Guard Testing
+    await User.create({
+      name: 'Inactive User',
+      email: 'inactive@gigmatch.com',
+      phone: '9876543299',
+      password: 'password123',
+      role: 'customer',
+      isActive: false,
+    });
+    console.log(`🚫 Created inactive user: inactive@gigmatch.com / password123`);
 
     // Seed Workers (3-4 per category, matching existing frontend logic)
     const workers = [];
@@ -123,7 +139,7 @@ async function seedDatabase() {
           name: `${fn} ${ln}`,
           email: `worker_${cat.slug}_${i}@gigmatch.com`,
           phone: `${6 + Math.floor(seededRandom(seed + 9) * 4)}${String(Math.floor(seededRandom(seed + 10) * 1000000000)).padStart(9, '0')}`,
-          password: hashedPassword, // All workers get same demo password
+          password: 'password123', // Pre-save will hash once
           role: 'worker',
           isEmailVerified: true,
           isActive: true,

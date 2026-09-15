@@ -50,6 +50,8 @@ async function runAuthHardeningTests() {
   const customerEmail = `cust_hardened_${timestamp}@test.com`;
   const workerEmail = `worker_hardened_${timestamp}@test.com`;
   const strongPassword = 'StrongPass@2026!';
+  const customerPhone = '9' + String(timestamp).slice(-9);
+  const workerPhone = '8' + String(timestamp).slice(-9);
 
   let customerToken = null;
   let customerId = null;
@@ -63,7 +65,7 @@ async function runAuthHardeningTests() {
       name: 'Hardened Customer',
       email: customerEmail,
       password: strongPassword,
-      phone: '9876543210',
+      phone: customerPhone,
       role: 'customer'
     }
   });
@@ -81,7 +83,7 @@ async function runAuthHardeningTests() {
       name: 'Hardened Worker',
       email: workerEmail,
       password: strongPassword,
-      phone: '9876543211',
+      phone: workerPhone,
       role: 'worker'
     }
   });

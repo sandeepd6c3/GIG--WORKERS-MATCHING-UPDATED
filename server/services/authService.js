@@ -94,9 +94,14 @@ export const registerUser = async ({ name, email, password, phone, role = 'custo
   }
 
   if (mongoose.connection && mongoose.connection.readyState === 1) {
-    const userExists = await User.findOne({ email: normalizedEmail });
+    const filter = [{ email: normalizedEmail }];
+    if (phone) filter.push({ phone });
+    const userExists = await User.findOne({ $or: filter });
     if (userExists) {
-      throw new ApiError(409, 'User already exists with this email');
+      if (userExists.email === normalizedEmail) {
+        throw new ApiError(409, 'User already exists with this email');
+      }
+      throw new ApiError(409, 'User already exists with this phone number');
     }
 
     const userData = {
@@ -108,7 +113,16 @@ export const registerUser = async ({ name, email, password, phone, role = 'custo
     };
     if (phone) userData.phone = phone;
 
-    const user = await User.create(userData);
+    let user;
+    try {
+      user = await User.create(userData);
+    } catch (err) {
+      if (err.code === 11000) {
+        const field = Object.keys(err.keyPattern || {})[0] || 'credential';
+        throw new ApiError(409, `User already exists with this ${field}`);
+      }
+      throw err;
+    }
 
     // Automatically create a linked Worker profile if role is worker
     let workerProfile = null;
