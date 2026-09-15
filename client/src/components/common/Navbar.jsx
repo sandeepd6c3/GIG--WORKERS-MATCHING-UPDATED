@@ -129,22 +129,34 @@ const Navbar = () => {
                   Admin Panel
                 </Link>
               )}
+              <Link
+                to={user.role === 'worker' ? '/worker/profile' : user.role === 'admin' ? '/admin/settings' : '/profile'}
+                style={{
+                  color: isActive('/profile') || isActive('/worker/profile') ? 'var(--accent-green)' : 'var(--text-secondary)',
+                  fontWeight: 500,
+                  fontSize: '0.92rem',
+                  transition: 'var(--transition)'
+                }}
+              >
+                Profile
+              </Link>
             </>
           )}
         </div>
 
         {/* Right Action Icons & User Menu */}
-        <div className="desktop-actions" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div className="desktop-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {user ? (
             <>
               <Link
                 to={user.role === 'worker' ? '/worker/notifications' : '/notifications'}
+                title="Notifications"
                 style={{
                   position: 'relative',
                   color: 'var(--text-secondary)',
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '0.4rem',
+                  padding: '0.45rem',
                   borderRadius: 'var(--radius-sm)',
                   transition: 'var(--transition)'
                 }}
@@ -172,19 +184,70 @@ const Navbar = () => {
                 )}
               </Link>
 
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.65rem',
-                background: 'var(--bg-surface)',
-                border: '1px solid var(--border-color)',
-                padding: '0.35rem 0.85rem',
-                borderRadius: 'var(--radius-full)'
-              }}>
-                <User size={16} style={{ color: 'var(--accent-green)' }} />
-                <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)' }}>{user.name}</span>
+              {/* Clickable User Profile Pill */}
+              <Link
+                to={user.role === 'worker' ? '/worker/profile' : user.role === 'admin' ? '/admin/settings' : '/profile'}
+                title="View and Edit Profile"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--border-color)',
+                  padding: '0.3rem 0.75rem 0.3rem 0.35rem',
+                  borderRadius: 'var(--radius-full)',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--accent-green)';
+                  e.currentTarget.style.boxShadow = '0 0 12px rgba(16, 185, 129, 0.2)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border-color)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                {/* User Avatar Image or Initials */}
+                {user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt={user.name || 'User'}
+                    style={{
+                      width: '28px',
+                      height: '28px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '1.5px solid var(--accent-green)'
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '50%',
+                    background: 'var(--accent-green-soft)',
+                    color: 'var(--accent-green)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    fontSize: '0.78rem'
+                  }}>
+                    {user.name ? user.name.charAt(0).toUpperCase() : <User size={15} />}
+                  </div>
+                )}
+
+                <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-main)', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {user.name}
+                </span>
+
                 <span style={{
-                  fontSize: '0.72rem',
+                  fontSize: '0.7rem',
                   background: 'var(--accent-green-soft)',
                   border: '1px solid var(--accent-green-border)',
                   color: 'var(--accent-green)',
@@ -195,22 +258,24 @@ const Navbar = () => {
                 }}>
                   {user.role}
                 </span>
-                <button
-                  onClick={handleLogout}
-                  title="Logout"
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#f87171',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginLeft: '0.4rem'
-                  }}
-                >
-                  <LogOut size={16} />
-                </button>
-              </div>
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                title="Logout"
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#f87171',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0.4rem',
+                  borderRadius: 'var(--radius-sm)'
+                }}
+              >
+                <LogOut size={18} />
+              </button>
             </>
           ) : (
             <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -253,6 +318,28 @@ const Navbar = () => {
           )}
           {user && user.role === 'admin' && (
             <Link to="/admin/dashboard" onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text-main)', padding: '0.5rem 0' }}>Admin Panel</Link>
+          )}
+
+          {user && (
+            <Link
+              to={user.role === 'worker' ? '/worker/profile' : user.role === 'admin' ? '/admin/settings' : '/profile'}
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                color: 'var(--accent-green)',
+                padding: '0.5rem 0',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                fontWeight: 600
+              }}
+            >
+              {user.avatar ? (
+                <img src={user.avatar} alt="" style={{ width: '22px', height: '22px', borderRadius: '50%', objectFit: 'cover' }} />
+              ) : (
+                <User size={18} />
+              )}
+              <span>My Profile ({user.name})</span>
+            </Link>
           )}
 
           {!user ? (

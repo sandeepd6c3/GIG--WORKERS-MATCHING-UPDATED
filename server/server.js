@@ -15,6 +15,7 @@ import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import connectDB from './config/db.js';
+import mongoose from 'mongoose';
 import colors from 'colors';
 
 // Import Routes
@@ -61,7 +62,18 @@ app.use('/api', apiLimiter);
 
 // Health Check
 app.get('/api/v1/health', (req, res) => {
-  res.status(200).json({ status: 'success', message: 'GigMatch API Server is healthy and running' });
+  const readyState = mongoose.connection.readyState;
+  const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+  res.status(200).json({
+    status: 'success',
+    message: 'GigMatch API Server is healthy and running',
+    database: {
+      status: states[readyState] || 'unknown',
+      connected: readyState === 1,
+      host: mongoose.connection.host || null,
+      name: mongoose.connection.name || null
+    }
+  });
 });
 
 // API Routes

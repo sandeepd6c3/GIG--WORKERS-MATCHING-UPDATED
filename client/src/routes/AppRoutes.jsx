@@ -37,9 +37,16 @@ import AdminAnalytics from '../pages/admin/Analytics';
 import AdminVerification from '../pages/admin/Verification';
 import AdminSettings from '../pages/admin/Settings';
 
-// Common
 import ProtectedRoute from '../components/common/ProtectedRoute';
 import NotFound from '../pages/common/NotFound';
+import useAuth from '../hooks/useAuth';
+
+const ProfileDispatcher = () => {
+  const { user } = useAuth();
+  if (user?.role === 'worker') return <WorkerPublicProfile />;
+  if (user?.role === 'admin') return <AdminSettings />;
+  return <CustomerProfile />;
+};
 
 const AppRoutes = () => {
   return (
@@ -57,7 +64,7 @@ const AppRoutes = () => {
       <Route path="/booking/:workerId" element={<ProtectedRoute allowedRoles={['customer']}><Booking /></ProtectedRoute>} />
       <Route path="/my-bookings" element={<ProtectedRoute allowedRoles={['customer']}><MyBookings /></ProtectedRoute>} />
       <Route path="/notifications" element={<ProtectedRoute allowedRoles={['customer']}><CustomerNotifications /></ProtectedRoute>} />
-      <Route path="/profile" element={<ProtectedRoute allowedRoles={['customer']}><CustomerProfile /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute allowedRoles={['customer', 'worker', 'admin']}><ProfileDispatcher /></ProtectedRoute>} />
 
       {/* Worker Protected Routes */}
       <Route path="/worker/dashboard" element={<ProtectedRoute allowedRoles={['worker']}><WorkerDashboard /></ProtectedRoute>} />
